@@ -2,13 +2,14 @@
 
 **Paper:** Observer-Interface Emergence of Formal Systems and Scale-Relative Informational Persistence  
 **Author:** Christopher Ezernack  
-**Audit Date:** April 2026
+**Audit Date:** April 13, 2026  
+**Manuscript Version:** v2 (25 pages, 9 citations)
 
 ---
 
 ## Verification of All Citations
 
-| Citation Key | Authors | Title | Journal | Year | Verified? | Notes |
+| Citation Key | Authors | Title | Journal/Publisher | Year | Verified? | Notes |
 |-------------|---------|-------|---------|------|-----------|-------|
 | tononi2016integrated | Tononi, Boly, Massimini, Koch | Integrated information theory: from consciousness to its physical substrate | Nature Reviews Neuroscience 17(7):450-461 | 2016 | Yes | Primary source for IIT 3.0. Real article, correct volume/pages. |
 | friston2010free | Friston, K | The free-energy principle: a unified brain theory? | Nature Reviews Neuroscience 11(2):127-138 | 2010 | Yes | Primary source for FEP. Real article, correct volume/pages. |
@@ -18,12 +19,13 @@
 | wilson1975renormalization | Wilson, KG and Kogut, J | The renormalization group and the epsilon expansion | Physics Reports 12(2):75-199 | 1974 | Yes | Primary source for RG theory. Real article, correct volume/pages. Note: year in key says 1975 but actual publication is 1974; bib entry has correct year. |
 | mashour2014top | Mashour, GA | Top-down mechanisms of anesthetic-induced unconsciousness | Frontiers in Systems Neuroscience 8:115 | 2014 | Yes | Real article on anesthesia and cortical coupling. Correct journal/volume. |
 | paninski2003estimation | Paninski, L | Estimation of entropy and mutual information | Neural Computation 15(6):1191-1253 | 2003 | Yes | Primary source for MI estimation challenges. Real article, correct volume/pages. |
+| cover1999elements | Cover, TM and Thomas, JA | Elements of Information Theory | John Wiley and Sons (2nd ed.) | 2006 | Yes | Standard textbook on information theory. Note: key says 1999 but bib entry correctly lists 2006 (2nd edition). |
 
 ---
 
 ## Fabrication Check
 
-**No fabricated citations found.** All 8 citations are real, published articles with correct bibliographic details. No placeholder citations, no invented page numbers, no fictional authors.
+**No fabricated citations found.** All 9 citations are real, published works with correct bibliographic details. No placeholder citations, no invented page numbers, no fictional authors.
 
 ---
 
@@ -36,6 +38,7 @@
 | Decoherence / einselection | Yes | zurek2003decoherence |
 | Transfer entropy | Yes | schreiber2000measuring |
 | Maximum entropy / statistical mechanics | Yes | jaynes1957information |
+| Gaussian mutual information | Yes | cover1999elements |
 | Renormalization group | Yes | wilson1975renormalization |
 | Anesthetic suppression of cortical coupling | Yes | mashour2014top |
 | Entropy/MI estimation difficulty | Yes | paninski2003estimation |
@@ -45,6 +48,20 @@
 
 ---
 
-## Recommendations
+## Claims Without Citation (Paper's Own Claims)
 
-All citations are verified. No changes needed. The bibliography is lean but every entry is a primary source directly relevant to the claims made in the paper.
+The following claims are original to this paper and are correctly presented as the paper's own contributions:
+
+1. The definition of coherence as a ratio of scale conditioned to total information
+2. The binding tensor formalism
+3. The representability map construction
+4. The distinction between apparent and absolute destruction
+5. The emergent universality theorem (Theorem 5)
+6. The observer evolution and monotonic expansion results (Theorems 7-8)
+7. The non-Platonic convergence corollary
+
+---
+
+## Overall Assessment
+
+All citations are real and verified. No fabricated material. Citation coverage is appropriate for the topics discussed. Original claims are correctly identified as the paper's own contributions.

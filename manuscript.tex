@@ -1,51 +1,25 @@
 \documentclass[12pt]{article}
-
-%%% Packages
-\usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage[margin=1in]{geometry}
-\usepackage[colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue]{hyperref}
-\usepackage{natbib}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{graphicx}
-\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{authblk}
+\usepackage{cite}
 \usepackage{enumitem}
-\usepackage{float}
-\usepackage{xcolor}
-\usepackage{cleveref}
+\usepackage{mathrsfs}
 
-%%% Theorem environments
-\theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}[theorem]{Lemma}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{conjecture}[theorem]{Conjecture}
+\geometry{margin=1in}
 
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{assumption}[theorem]{Assumption}
-\newtheorem{example}[theorem]{Example}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{remark}{Remark}
 
-\theoremstyle{remark}
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{notation}[theorem]{Notation}
-
-%%% Custom commands
-\newcommand{\R}{\mathcal{R}}
-\newcommand{\Obs}{\mathcal{O}}
-\newcommand{\SigO}{\Sigma_{\mathcal{O}}}
-\newcommand{\IO}{I_{\mathcal{O}}}
-\newcommand{\Bij}{\mathcal{B}_{ij}}
-\newcommand{\Iinfo}{\mathcal{I}}
-\newcommand{\Cs}{\mathcal{C}^{(\mathcal{O})}_s}
-\newcommand{\Fs}{\mathcal{F}_s}
-\newcommand{\TO}{\mathcal{T}_{\mathcal{O}}}
-\newcommand{\DO}{\mathcal{D}_{\mathcal{O}}}
-\newcommand{\VO}{\mathcal{V}_{\mathcal{O}}}
-\newcommand{\MO}{\mathfrak{M}_{\mathcal{O}}}
-\newcommand{\PsiO}{\Psi_{\mathcal{O}}}
-\newcommand{\epsO}{\epsilon_{\mathcal{O}}}
-
-\title{Observer-Interface Emergence of Formal Systems\\and Scale-Relative Informational Persistence}
+\title{Observer-Interface Emergence of Formal Systems and Scale-Relative Informational Persistence}
 \author{Christopher Ezernack}
 \date{}
 
@@ -53,710 +27,750 @@
 
 \maketitle
 
-%% ============================================================
-%% ABSTRACT
-%% ============================================================
 \begin{abstract}
-This paper establishes a formal framework in which mathematical systems and the apparent destruction of physical systems are treated as properties of an observer-scale-representation triple, rather than intrinsic properties of reality.  We define an observer interface that maps an underlying, inaccessible reality into a representable state space.  From this interface, formal systems emerge as the closure of stable distinctions, admissible transformations, and invariants.  Within this framework, we define a scale-conditioned coherence functional based on integrated relational information and prove that the apparent destruction of a system---defined as the loss of coherence at a specific scale---does not imply absolute annihilation.  Instead, informational structure is redistributed across scales and degrees of freedom.  We demonstrate the framework through two concrete instantiations: a statistical mechanics example using mutual information over jointly Gaussian variables, and a neuroscience example using transfer entropy and temporal filtration to model anesthetic suppression of cortical coupling.  We position this framework relative to Integrated Information Theory, the Free Energy Principle, and decoherence-based approaches, showing that it provides a more general structure that does not presuppose fixed system boundaries, inferential architectures, or absolute loss.  We address computability concerns and identify tractable approximation strategies.
+This paper introduces a formal framework in which mathematical and informational structures are not treated as intrinsic properties of an absolute reality, but as emergent properties of an observer interface interaction. We define coherence, representability, destruction, and persistence relative to an observer, a scale, and a representation. By constructing a rigorous dependency chain from an underlying reality through an observer interface, binding tensor, and scale conditioned information functional, we demonstrate that apparent destruction is properly understood as a loss of representability at a specific scale rather than absolute annihilation. We prove that under transformations with bounded scale distortion, relational structure persists at some scale. Furthermore, we resolve the problem of mathematical universality without invoking Platonism, showing that overlapping observer interfaces generate a shared formal system grounded in a common reality. The framework is instantiated in both classical statistical mechanics and neuroscience, and positioned against existing theories including Integrated Information Theory, the Free Energy Principle, and decoherence.
 \end{abstract}
 
-%% ============================================================
-%% 1. INTRODUCTION
-%% ============================================================
-\section{Introduction}\label{sec:intro}
+\section{Introduction}
 
-The problem of destruction and persistence is central to both physics and the philosophy of mind.  When a highly organized system---a living organism, a coherent quantum state, or a structured neural network---undergoes a radical transformation, it often appears to be destroyed.  Conservation laws dictate that the underlying energy and fundamental components persist, yet the organizational structure seems to vanish.  The tension lies in whether that organizational structure is absolutely annihilated or merely transformed into a state that is no longer representable by the observer who declared the destruction.
+The question of whether structure is destroyed or merely transformed is central to physics, information theory, and the philosophy of mind. When a system undergoes a radical state change such as thermalization in a gas, decoherence in a quantum system, or the onset of anesthesia in a neural network macroscopic coherence is lost. The standard interpretation is that the structured information has been destroyed or dissipated into the environment. 
 
-Existing theoretical frameworks tend to treat coherence, integration, and informational structure as intrinsic properties of systems.  Integrated Information Theory \citep{tononi2016integrated} computes a scalar quantity $\Phi$ within a fixed system boundary.  The Free Energy Principle \citep{friston2010free} presupposes an inferential agent minimizing surprise.  Decoherence theory \citep{zurek2003decoherence} describes the loss of quantum coherence through environmental entanglement.  Each of these frameworks captures something real, but each also presupposes a fixed vantage point: a fixed boundary, a fixed inference architecture, or a fixed basis in which coherence is defined.
+This paper challenges that interpretation by formalizing the role of the observer. We propose that coherence, information, and even the formal mathematical systems used to describe reality are not intrinsic properties of the world in itself, but are generated by the interaction between an underlying reality and an observer interface. What appears as destruction is often merely a loss of representability within a specific observer formal system at a specific scale.
 
-This paper constructs a framework in which coherence, representability, destruction, and persistence are all defined relative to an observer, a scale of observation, and a representation space.  The core claim is that apparent destruction is a loss of representability within a specific observer interface, not immediate proof of absolute annihilation.  By formalizing the observer's interaction with reality, we show that mathematical systems themselves emerge from the constraints of this interface, and that the persistence of informational structure across radical transformations can be stated and proved as a formal result.
+The framework developed here is not a rhetorical argument about death or structure; it is a formal mathematical architecture. We define an observer as a tuple of sensor, partition, compression, and transformation maps. From this, we construct a binding tensor that captures relational structure, and a scale conditioned information functional that measures coherence. We prove that under transformations that do not absolutely annihilate information, structure persists at some scale, even if it becomes invisible to the original observer. 
 
-The paper proceeds as follows.  \Cref{sec:motivation} states the problem.  \Cref{sec:prelim} fixes notation.  \Cref{sec:framework} develops the core formal framework: definitions, lemmas, propositions, and theorems.  \Cref{sec:dynamics} extends the framework to observer evolution and cross-observer agreement.  \Cref{sec:universality} addresses the universality question.  \Cref{sec:example1} and \Cref{sec:example2} provide concrete instantiations from statistical mechanics and neuroscience.  \Cref{sec:comparison} positions the framework against existing theories.  \Cref{sec:computability} addresses computability.  \Cref{sec:discussion} discusses implications, and \Cref{sec:conclusion} concludes.
+Furthermore, we address the problem of mathematical universality. If mathematics is observer generated, why does it appear universal? We prove that when multiple observers interact with the same underlying reality through mutually non singular interfaces, their generated formal systems intersect to form a shared, stable mathematical structure. This provides a rigorous alternative to Platonism: universal mathematics is the stable residue of overlapping observer interface constructions over a common world.
 
-%% ============================================================
-%% 2. MOTIVATION AND PROBLEM STATEMENT
-%% ============================================================
-\section{Motivation and Problem Statement}\label{sec:motivation}
+\section{Motivation and Problem Statement}
 
-Disorder is often scale-dependent.  What appears as random noise at a macroscopic level may be governed by strict deterministic rules at a microscopic level.  In statistical mechanics, high entropy does not mean an absence of structure; it means the structure is distributed across many possible microstates \citep{jaynes1957information}.  In renormalization group theory, the behavior and apparent organization of a system change depending on the scale of observation \citep{wilson1975renormalization}.  In neuroscience, general anesthesia suppresses long-range cortical coupling while preserving local fast-timescale activity \citep{mashour2014top}, creating a situation in which one observer (using fMRI) declares the network destroyed while another observer (using high-frequency EEG) detects preserved structure.
+The primary motivation for this work is to resolve the ambiguity surrounding informational destruction. In many existing frameworks, the boundary of a system and the scale of observation are fixed by the analyst before the theory begins. If structure crosses that boundary or falls below that scale, it is declared lost. 
 
-The problem is that existing frameworks model the transition from order to disorder as a loss of structure, full stop.  We propose that this loss is often an artifact of the observer's limited resolution and interface constraints.  The goal of this paper is to construct a rigorous mathematical language in which:
-\begin{enumerate}[label=(\roman*)]
-    \item coherence is defined relative to an observer and a scale,
-    \item destruction is defined as loss of coherence at a specific scale for a specific observer,
-    \item persistence is defined as the survival of informational structure at other scales or for other observers, and
-    \item mathematical systems themselves are derived as emergent structures from the observer interface rather than assumed as pre-existing Platonic objects.
-\end{enumerate}
+This creates a theoretical blind spot. If we treat the observer scale and interface as absolute, we mistake our inability to represent a state for the state non existence. The problem is to construct a framework where the observer interface is explicitly parameterized, allowing us to track how changes in the system or changes in the observer affect representability.
 
-%% ============================================================
-%% 3. PRELIMINARIES AND NOTATION
-%% ============================================================
-\section{Preliminaries and Notation}\label{sec:prelim}
+Specifically, we aim to:
+1. Define coherence and representability relative to an observer and a scale.
+2. Separate apparent destruction (loss of representability at a given scale) from absolute destruction (total annihilation of relational structure).
+3. Prove that structure persists across scales under non annihilating transformations.
+4. Explain how observer dependent formal systems can nonetheless yield universal mathematical agreement.
 
-We establish a consistent notation used throughout the paper.  All symbols are defined before first use and are not reused for other meanings.
+\section{Preliminaries and Notation}
 
-\begin{notation}[Global Symbol Table]\label{not:symbols}
-The following symbols are fixed for the entire paper:
-\begin{itemize}[nosep]
-    \item $\R$: underlying state space of reality (measurable topological space).
-    \item $\Obs = (\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$: observer class tuple.
-    \item $\IO : \R \to \SigO$: observer interface map.
-    \item $\SigO$: observer-accessible (representable) state space.
-    \item $E$: component index space with measure $\nu$.
-    \item $\Bij(x)$: binding tensor (non-negative, measurable).
-    \item $\Iinfo[x]$: integrated relational information.
-    \item $\Iinfo_s[x]$: scale-conditioned information at scale $s$.
-    \item $\Cs[x]$: scale-dependent coherence functional.
-    \item $\{\Fs\}_{s \in \mathcal{S}}$: scale filtration on $\SigO$.
-    \item $\TO$: admissible transformation set.
-    \item $\DO$: distinction set.
-    \item $\VO$: invariant set.
-    \item $\MO$: observer-induced mathematical system.
-    \item $\PsiO$: representability map.
-    \item $\epsO$: observer detection threshold.
-    \item $\alpha$: information non-annihilation parameter (reserved).
-    \item $\beta$: bounded scale distortion parameter (reserved).
-    \item $\gamma$: neural suppression parameter (reserved).
+Throughout this paper, we maintain a strict separation between the underlying reality and the observer representation of it. We standardize the following notation globally:
+
+\begin{itemize}
+    \item $\mathcal{R}$: The underlying reality, modeled as a measurable space.
+    \item $\mathcal{O}$: An observer, defined as a tuple of maps.
+    \item $\Sigma_{\mathcal{O}}$: The state space accessible to the observer.
+    \item $I_{\mathcal{O}}$: The interface map from $\mathcal{R}$ to $\Sigma_{\mathcal{O}}$.
+    \item $\mathcal{F}_s$: A scale filtration, where $s$ indexes the resolution.
+    \item $\mathcal{B}_{ij}(x)$: The binding tensor capturing relational structure between components $i$ and $j$ in state $x$.
+    \item $\mathcal{I}[x]$: The integrated relational information of state $x$.
+    \item $\mathcal{I}_s[x]$: The scale conditioned information at scale $s$.
+    \item $\mathcal{C}_s^{(\mathcal{O})}[x]$: The coherence functional at scale $s$ for observer $\mathcal{O}$.
+    \item $\epsilon_{\mathcal{O}}$: The coherence threshold for observer $\mathcal{O}$.
+    \item $\mathfrak{M}_{\mathcal{O}}$: The formal system generated by the observer.
+    \item $\Psi_{\mathcal{O}}$: The representability map.
+    \item $\alpha$: The information non annihilation parameter (used exclusively in Definition 17).
+    \item $\beta$: The bounded scale distortion parameter (used exclusively in Definition 18).
+    \item $\gamma$: The neural suppression parameter (used exclusively in Example 2).
 \end{itemize}
-\end{notation}
 
-%% ============================================================
-%% 4. CORE FORMAL FRAMEWORK
-%% ============================================================
-\section{Core Formal Framework}\label{sec:framework}
+\section{Core Formal Framework}
 
-The logical structure of the framework is summarized in \Cref{fig:definition_chain}.  We proceed through the definitions in order.
+We now build the formal architecture, proceeding strictly from the underlying reality through the observer interface to the generation of the formal system. The dependency chain is as follows: we begin with the underlying reality $\mathcal{R}$ and the observer $\mathcal{O}$, which together determine the interface map $I_{\mathcal{O}}$. From the interface map, we construct the binding tensor $\mathcal{B}_{ij}(x)$ over a component index space $(E, \nu)$. Integrating the binding tensor yields the total relational information $\mathcal{I}[x]$. Conditioning on the scale filtration $\{\mathcal{F}_s\}$ yields the scale conditioned information $\mathcal{I}_s[x]$. The ratio of scale conditioned to total information gives the coherence functional $\mathcal{C}_s^{(\mathcal{O})}[x]$. Thresholding the coherence yields the distinction set $\mathcal{D}_{\mathcal{O}}$, and closing the distinction set under admissible transformations yields the formal system $\mathfrak{M}_{\mathcal{O}}$. Finally, the representability map $\Psi_{\mathcal{O}}$ records which scales support coherent representation for each state.
+
+This chain is not optional. Every later theorem depends on the definitions being in place and correctly ordered. We present them in the order required by the logical dependencies.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.95\textwidth]{figures/fig3_definition_chain.pdf}
-\caption{Definition dependency chain.  Blue boxes (top row) trace the path from underlying reality $\mathcal{R}$ through the observer interface to coherence $\mathcal{C}^{(\mathcal{O})}_s$.  Orange boxes (bottom row) show the parallel path through distinctions, transformations, and invariants to the induced mathematical system $\mathfrak{M}_{\mathcal{O}}$ and representability $\Psi_{\mathcal{O}}$.}
-\label{fig:definition_chain}
+\includegraphics[width=0.85\textwidth]{figures/fig3_definition_chain.png}
+\caption{The dependency chain of the formal framework. Each formal object depends on the objects above it. The chain proceeds from the underlying reality and observer interface through the binding tensor, information functionals, coherence, distinction sets, and finally the formal system and representability map.}
+\label{fig:depchain}
 \end{figure}
 
-\subsection{Foundational Definitions}
+\subsection{Underlying Reality and Observer Interface}
 
-\begin{definition}[Underlying Reality]\label{def:reality}
-Let $\R$ be a measurable topological space denoting the underlying state space of reality.  We do not assume $\R$ is directly accessible or fully representable by any observer.  The measurable structure is a $\sigma$-algebra $\mathcal{F}_{\R}$ on $\R$.
+\begin{definition}[Underlying Reality]
+Let $\mathcal{R}$ be a measurable space $(\mathcal{R}, \Sigma_{\mathcal{R}})$ representing the totality of what exists independent of any observer. $\mathcal{R}$ is not assumed directly accessible; all formal objects are constructed from observer interactions with $\mathcal{R}$.
 \end{definition}
 
-\begin{definition}[Observer Interface]\label{def:observer}
-An observer class is a tuple $\Obs = (\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$ where:
-\begin{itemize}[nosep]
-    \item $\mathcal{S}$ is the sensory structure (the physical channels through which the observer receives signals from $\R$),
-    \item $\mathcal{P}$ is the perceptual partition mapping (the coarse-graining applied to raw sensory input),
-    \item $\mathcal{C}$ is the cognitive representation and compression system (the internal encoding of perceived states), and
-    \item $\mathcal{A}$ is the admissible transformation and inference structure (the set of operations the observer can perform on its representations).
+\begin{definition}[Observer]
+An observer $\mathcal{O}$ is a tuple $\mathcal{O} = (\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$ where:
+\begin{itemize}
+    \item $\mathcal{S}$: a sensor set (channels through which $\mathcal{R}$ is sampled).
+    \item $\mathcal{P}$: a partition map (a measurable function partitioning sensor output into distinguishable classes).
+    \item $\mathcal{C}$: a compression map (further reduction of partitioned output into representable states).
+    \item $\mathcal{A}$: a set of admissible transformations on the observer state space, closed under composition.
 \end{itemize}
-The observer interacts with reality through an interface map $\IO: \R \to \SigO$, where $\SigO$ is the observer-accessible state space equipped with a $\sigma$-algebra $\mathcal{F}_{\SigO}$ such that $\IO$ is measurable.
 \end{definition}
 
-\begin{definition}[Admissible Transformation Set]\label{def:admissible}
-Let $\TO$ denote the set of admissible transformations associated with observer $\Obs$, defined as $\TO := \mathcal{A}$.  Each $T \in \TO$ is a measurable map $T: \SigO \to \SigO$.
+\begin{definition}[Admissible Transformation Set]
+Let $\mathcal{T}_{\mathcal{O}}$ denote the set of admissible transformations associated with observer $\mathcal{O}$, i.e., $\mathcal{T}_{\mathcal{O}} := \mathcal{A}$ where $\mathcal{A}$ is the transformation set specified in Definition 2. All subsequent uses of $\mathcal{T}_{\mathcal{O}}$ refer to this set.
 \end{definition}
 
-\begin{definition}[Observational Equivalence]\label{def:equiv}
-Define an equivalence relation on $\R$:
-\[
-    r_1 \sim_{\Obs} r_2 \iff \IO(r_1) = \IO(r_2).
-\]
-The effective observable world for $\Obs$ is the quotient space $\R_{\Obs} := \R / \sim_{\Obs}$.
+\begin{definition}[Interface Map]
+The interface map of observer $\mathcal{O}$ is the measurable composition:
+\begin{equation}
+I_{\mathcal{O}} := \mathcal{C} \circ \mathcal{P} : \mathcal{R} \to \Sigma_{\mathcal{O}}
+\end{equation}
+where $\Sigma_{\mathcal{O}}$ inherits a $\sigma$-algebra as the pushforward of $\Sigma_{\mathcal{R}}$.
+\end{definition}
+
+\begin{definition}[Observer Equivalence]
+Define an equivalence relation on $\mathcal{R}$:
+\begin{equation}
+r_1 \sim_{\mathcal{O}} r_2 \iff I_{\mathcal{O}}(r_1) = I_{\mathcal{O}}(r_2)
+\end{equation}
+The observer accessible state space is the quotient:
+\begin{equation}
+\mathcal{R}_{\mathcal{O}} := \mathcal{R} / {\sim_{\mathcal{O}}}
+\end{equation}
 \end{definition}
 
 \begin{remark}
-The quotient $\R_{\Obs}$ captures the fact that the observer cannot distinguish between states of reality that map to the same representable state.  This is the formal expression of observational limitation.
+$\mathcal{R}_{\mathcal{O}}$ is the effective reality for $\mathcal{O}$. States in $\mathcal{R}$ that are $\mathcal{O}$ indistinguishable are structurally identical within $\mathcal{O}$ formal system. This is not a claim about $\mathcal{R}$; it is a claim about $\mathcal{O}$.
 \end{remark}
 
-\begin{definition}[Distinction Set]\label{def:distinction}
-Let $\DO \subseteq \SigO$ denote the set of stable distinguishable states under $\Obs$.  A state $\sigma \in \SigO$ is in $\DO$ if and only if there exists an open neighborhood $U \ni \sigma$ in $\SigO$ such that for all $\sigma' \in U \setminus \{\sigma\}$, the observer can reliably separate $\sigma$ from $\sigma'$ under repeated observation.
+The observer tuple $\mathcal{O} = (\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$ is the central parameterization of the framework. Every formal object that follows is determined by this tuple. The sensor set $\mathcal{S}$ determines what channels of $\mathcal{R}$ are sampled. The partition map $\mathcal{P}$ determines which raw signals are treated as equivalent. The compression map $\mathcal{C}$ determines how the partitioned output is reduced to a representable state. The admissible transformation set $\mathcal{A}$ determines which state transitions are recognized by the observer. Changing any one of these components changes the interface map, the binding tensor, the coherence functional, and ultimately the formal system.
+
+\subsection{Scale and Relational Structure}
+
+\begin{definition}[Scale Filtration]
+A scale filtration on $(\Sigma_{\mathcal{O}}, \mathcal{F})$ is a family:
+\begin{equation}
+\{\mathcal{F}_s\}_{s \in \mathcal{S}}, \quad \mathcal{S} = ([s_{\min}, s_{\max}], \leq)
+\end{equation}
+where each $\mathcal{F}_s$ is a sub $\sigma$-algebra of $\mathcal{F}$, and:
+\begin{equation}
+s_1 \leq s_2 \implies \mathcal{F}_{s_1} \subseteq \mathcal{F}_{s_2}
+\end{equation}
+Convention: Increasing $s$ corresponds to coarser resolution (less detail retained). At the finest scale $s_{\min}$, the full $\sigma$-algebra is available. At the coarsest scale $s_{\max}$, only the trivial $\sigma$-algebra $\{\emptyset, \Sigma_{\mathcal{O}}\}$ remains.
 \end{definition}
 
-\begin{definition}[Invariant Set]\label{def:invariant}
-Let $\VO$ be the set of properties of states in $\SigO$ that are preserved under all transformations in $\TO$:
-\[
-    \VO := \{ v : \SigO \to \mathbb{R} \mid v(T(\sigma)) = v(\sigma) \text{ for all } T \in \TO, \, \sigma \in \SigO \}.
-\]
+The scale filtration is the mechanism by which the framework captures the resolution dependence of observation. Different observers may impose different filtrations on the same state space, leading to different coherence profiles for the same underlying state. This is the formal content of the claim that coherence is observer relative.
+
+\begin{definition}[Component Index Space]
+Let $(E, \nu)$ be a measurable space with finite measure $\nu$, indexing the components or subsystems over which relational structure is measured.
 \end{definition}
 
-\begin{definition}[Observer-Induced Mathematics]\label{def:math}
-Define the mathematical system induced by observer $\Obs$ as the least fixed point generated from the distinction set, transformations, and invariants:
-\[
-    \MO := \mathrm{Closure}(\DO, \TO, \VO),
-\]
-where $\mathrm{Closure}$ denotes the smallest structure closed under application of transformations in $\TO$ to elements of $\DO$, subject to the constraints imposed by $\VO$.
-\end{definition}
-
-\begin{remark}
-The term ``least fixed point'' is used in the lattice-theoretic sense.  The collection of all subsets of $\SigO$ closed under $\TO$ and containing $\DO$ forms a complete lattice under inclusion, and $\MO$ is its infimum.
-\end{remark}
-
-\subsection{Information-Theoretic Definitions}
-
-\begin{definition}[System State and Component Decomposition]\label{def:decomp}
-A system is represented as $x \in \SigO$.  We assume there exists a measurable decomposition $x \mapsto \{x_i\}_{i \in E}$ over an index space $(E, \mathcal{E}, \nu)$, where $\nu$ is a $\sigma$-finite measure on $E$.  The existence of this decomposition is an assumption on the representational structure induced by $\Obs$, not a claim about $\R$.  It need not correspond to any canonical factorization of the underlying reality.
-\end{definition}
-
-\begin{definition}[Binding Tensor]\label{def:binding}
-Let $\Bij(x) \geq 0$ be a measurable function on $E \times E$ capturing the pairwise dependency structure between components $x_i$ and $x_j$.  Concretely, $\Bij(x)$ may be instantiated as:
-\begin{itemize}[nosep]
-    \item conditional mutual information: $\Bij(x) = I(x_i ; x_j \mid x_{E \setminus \{i,j\}})$,
-    \item symmetrized transfer entropy: $\Bij(x) = \frac{1}{2}[\mathrm{TE}(x_i \to x_j) + \mathrm{TE}(x_j \to x_i)]$, or
-    \item any non-negative, symmetric, measurable dependency measure satisfying $\Bij(x) = 0$ if and only if $x_i$ and $x_j$ are conditionally independent given the remaining components.
+\begin{definition}[Binding Tensor]
+For a state $x \in \Sigma_{\mathcal{O}}$, define the binding tensor $\mathcal{B}_{ij}(x) \geq 0$ as a measurable function satisfying:
+\begin{itemize}
+    \item Symmetry: $\mathcal{B}_{ij}(x) = \mathcal{B}_{ji}(x)$
+    \item Non negativity: $\mathcal{B}_{ij}(x) \geq 0$
 \end{itemize}
-Independence is defined with respect to the joint distribution of $(x_i, x_j)$ induced by the pushforward measure $\mu_{\Obs} := (\IO)_* \mu_{\R}$, where $\mu_{\R}$ is a reference measure on $\R$.
 \end{definition}
 
-\begin{definition}[Integrated Relational Information]\label{def:IRI}
-The integrated relational information of a system state $x$ is:
-\[
-    \Iinfo[x] := \int_{E \times E} \Bij(x) \, d\nu(i) \, d\nu(j).
-\]
-This quantity measures the total pairwise binding structure of $x$ as represented by $\Obs$.
+\begin{definition}[Integrated Relational Information]
+Define the information functional:
+\begin{equation}
+\mathcal{I}[x] := \int_{E \times E} \mathcal{B}_{ij}(x) \, d\nu(i,j)
+\end{equation}
+This is a scalar measure of total relational structure in state $x$, as captured by the binding tensor. The integral is taken with respect to the product measure $\nu \times \nu$ on $E \times E$. For finite component spaces, this reduces to a double sum.
 \end{definition}
 
-\begin{definition}[Scale Filtration]\label{def:filtration}
-Let $\mathcal{S} \subseteq \mathbb{R}_{\geq 0}$ be a totally ordered scale parameter space.  A scale filtration on $\SigO$ is a family $\{\Fs\}_{s \in \mathcal{S}}$ of sub-$\sigma$-algebras of $\mathcal{F}_{\SigO}$ satisfying:
-\begin{enumerate}[nosep,label=(\alph*)]
-    \item $s_1 \leq s_2 \implies \mathcal{F}_{s_2} \subseteq \mathcal{F}_{s_1}$ (coarser scales carry less information),
-    \item $\mathcal{F}_{\inf \mathcal{S}} = \mathcal{F}_{\SigO}$ (the finest scale recovers full information), and
-    \item $\mathcal{F}_{\sup \mathcal{S}}$ is the trivial $\sigma$-algebra (the coarsest scale retains no structure).
-\end{enumerate}
+\begin{definition}[Scale Conditioned Information]
+For scale $s$, define:
+\begin{equation}
+\mathcal{I}_s[x] := \int_{E \times E} \mathbb{E}[\mathcal{B}_{ij}(x) \mid \mathcal{F}_s] \, d\nu(i,j)
+\end{equation}
+where the expectation is the conditional expectation of $\mathcal{B}_{ij}$ with respect to the sub $\sigma$-algebra $\mathcal{F}_s$.
 \end{definition}
 
-\begin{definition}[Scale-Conditioned Information]\label{def:scalecond}
-The information detectable at scale $s$ is:
-\[
-    \Iinfo_s[x] := \int_{E \times E} \mathbb{E}[\Bij(x) \mid \Fs] \, d\nu(i) \, d\nu(j),
-\]
-where the conditional expectation is taken with respect to the filtration $\sigma$-algebra $\Fs$.
-\end{definition}
-
-\begin{definition}[Scale-Dependent Coherence]\label{def:coherence}
-The coherence functional at scale $s$ for observer $\Obs$ is:
-\[
-    \Cs[x] := \frac{\Iinfo_s[x]}{\Iinfo[x]},
-\]
-defined for $\Iinfo[x] > 0$.  By construction, $\Cs[x] \in [0, 1]$ for all $s$, with $\mathcal{C}^{(\Obs)}_{\inf \mathcal{S}}[x] = 1$ and $\mathcal{C}^{(\Obs)}_{\sup \mathcal{S}}[x] = 0$.
-\end{definition}
-
-\begin{remark}\label{rem:monotone}
-The coherence functional $\Cs[x]$ is non-increasing in $s$.  This follows from the tower property of conditional expectation: if $s_1 \leq s_2$, then $\mathcal{F}_{s_2} \subseteq \mathcal{F}_{s_1}$, so $\mathbb{E}[\Bij(x) \mid \mathcal{F}_{s_2}] = \mathbb{E}[\mathbb{E}[\Bij(x) \mid \mathcal{F}_{s_1}] \mid \mathcal{F}_{s_2}]$, and by Jensen's inequality applied to the non-negative integrand, $\Iinfo_{s_2}[x] \leq \Iinfo_{s_1}[x]$.
-\end{remark}
-
-\subsection{Representability and Destruction}
-
-\begin{definition}[Representability Map]\label{def:repmap}
-The representability map $\PsiO : \SigO \to \MO \cup \{\varnothing\}$ is defined as:
-\[
-    \PsiO(x) := \begin{cases} \pi_{\Obs}(x) & \text{if } \exists \, s \in \mathcal{S} : \Cs[x] > \epsO, \\ \varnothing & \text{otherwise,} \end{cases}
-\]
-where $\pi_{\Obs}$ is the projection retaining only structure representable within $\MO$, and $\epsO > 0$ is the observer's detection threshold.
-\end{definition}
-
-\begin{definition}[Information-Non-Annihilating Transformation]\label{def:nonannihilating}
-A transformation $T: \SigO \to \SigO$ is information-non-annihilating with parameter $\alpha > 0$ if:
-\[
-    \Iinfo[T(x)] \geq \alpha \cdot \Iinfo[x] \quad \text{for all } x \in \SigO.
-\]
-\end{definition}
-
-\begin{definition}[Bounded Scale Distortion]\label{def:scaledistort}
-A transformation $T: \SigO \to \SigO$ has bounded scale distortion with parameter $\beta > 0$ if for every $x \in \SigO$ with $\Iinfo[x] > 0$, there exists $s^* \in \mathcal{S}$ such that:
-\[
-    \Iinfo_{s^*}[T(x)] \geq \beta \cdot \Iinfo_{s^*}[x].
-\]
-\end{definition}
-
-\begin{definition}[Apparent Destruction]\label{def:destruction}
-A system $x$ appears destroyed at scale $s_0$ for observer $\Obs$ under transformation $T$ if:
-\[
-    \mathcal{C}^{(\Obs)}_{s_0}[T(x)] \leq \epsO.
-\]
-\end{definition}
-
-\begin{definition}[Absolute Destruction]\label{def:absdestruction}
-A system $x$ is absolutely destroyed under transformation $T$ if:
-\[
-    \Iinfo[T(x)] = 0.
-\]
-That is, all relational structure is eliminated, not merely redistributed.
-\end{definition}
-
-\subsection{Lemmas and Propositions}
-
-\begin{lemma}[Axiom Emergence]\label{lem:axiom}
-Let $\mathcal{X}_{\Obs} := \{ x \in \SigO : \PsiO(x) \neq \varnothing \}$ be the set of representable entities.  The axioms of $\MO$ arise as compressed regularities:
-\[
-    \mathrm{Ax}_{\Obs} = \mathrm{Comp}(\mathrm{Reg}(\mathcal{X}_{\Obs})),
-\]
-where $\mathrm{Reg}$ extracts the recurrent patterns in $\mathcal{X}_{\Obs}$ and $\mathrm{Comp}$ selects a minimal generating set under $\TO$.
+\begin{lemma}[Scale Decomposition via Chain Rule]
+For any $s_1 \leq s_2$:
+\begin{equation}
+\mathcal{I}_{s_1}[x] = \mathcal{I}_{s_2}[x] + \int_{E \times E} \left( \mathbb{E}[\mathcal{B}_{ij} \mid \mathcal{F}_{s_1}] - \mathbb{E}[\mathcal{B}_{ij} \mid \mathcal{F}_{s_2}] \right) \, d\nu(i,j)
+\end{equation}
 \end{lemma}
-
 \begin{proof}
-By \Cref{def:math}, $\MO$ is the least fixed point of the closure operation.  The generating elements of this fixed point are exactly those regularities in $\DO$ that cannot be derived from fewer elements under $\TO$.  By the Knaster-Tarski theorem, this least fixed point exists and is unique in the complete lattice of closed subsets of $\SigO$.  The minimal generating set of this fixed point constitutes the axiom set.
+This follows directly from the tower property of conditional expectation and the linearity of integration. Since $s_1 \leq s_2$, we have $\mathcal{F}_{s_1} \subseteq \mathcal{F}_{s_2}$. The term $\mathbb{E}[\mathcal{B}_{ij} \mid \mathcal{F}_{s_1}]$ represents the information available at the finer scale $s_1$. By taking the conditional expectation of this quantity with respect to the coarser scale $\mathcal{F}_{s_2}$, we recover $\mathbb{E}[\mathcal{B}_{ij} \mid \mathcal{F}_{s_2}]$. The integral of the difference thus quantifies the exact amount of relational structure that is representable at scale $s_1$ but lost at scale $s_2$.
 \end{proof}
 
-\begin{proposition}[Non-Platonic Emergence]\label{prop:nonplatonic}
-$\MO$ is generated by the pair $(\R, \Obs)$, not accessed as a pre-existing structure.  Formally, if $\Obs' \neq \Obs$ with $\IO \neq I_{\Obs'}$, then in general $\MO \neq \mathfrak{M}_{\Obs'}$.
-\end{proposition}
+\begin{definition}[Coherence Functional]
+For observer $\mathcal{O}$ and scale $s$, define:
+\begin{equation}
+\mathcal{C}_s^{(\mathcal{O})}[x] := \frac{\mathcal{I}_s[x]}{\mathcal{I}[x]}
+\end{equation}
+provided $\mathcal{I}[x] > 0$.
+\end{definition}
 
-\begin{proof}
-Since $\IO \neq I_{\Obs'}$, the equivalence relations $\sim_{\Obs}$ and $\sim_{\Obs'}$ differ.  Therefore $\DO \neq \mathcal{D}_{\Obs'}$ in general, and since $\MO$ is uniquely determined by $(\DO, \TO, \VO)$, the induced mathematical systems differ.
-\end{proof}
+\begin{definition}[Coherence Threshold]
+A state $x$ is coherent at scale $s$ for $\mathcal{O}$ if:
+\begin{equation}
+\mathcal{C}_s^{(\mathcal{O})}[x] > \epsilon_{\mathcal{O}}
+\end{equation}
+and apparently destroyed at scale $s$ for $\mathcal{O}$ if:
+\begin{equation}
+\mathcal{C}_s^{(\mathcal{O})}[x] \leq \epsilon_{\mathcal{O}}
+\end{equation}
+\end{definition}
 
-\begin{proposition}[Observer Non-Isomorphism]\label{prop:noniso}
-For two observer classes $\Obs_1, \Obs_2$, if their interface maps partition $\R$ into non-isomorphic quotient spaces, then $\mathfrak{M}_{\Obs_1} \not\cong \mathfrak{M}_{\Obs_2}$.
-\end{proposition}
+\begin{remark}
+$\epsilon_{\mathcal{O}}$ is a property of the observer, not of the system. Different observers may disagree on whether a state is coherent.
+\end{remark}
 
-\begin{proof}
-If $\R / \sim_{\Obs_1} \not\cong \R / \sim_{\Obs_2}$ as measurable spaces, then the distinction sets $\mathcal{D}_{\Obs_1}$ and $\mathcal{D}_{\Obs_2}$ have different cardinalities or topological structures.  Since the closure operation preserves these structural differences, the resulting mathematical systems are non-isomorphic.
-\end{proof}
+\begin{definition}[Distinction Set]
+\begin{equation}
+\mathcal{D}_{\mathcal{O}} := \left\{ x \in \Sigma_{\mathcal{O}} : \mathcal{C}_{s_0}^{(\mathcal{O})}[x] > \epsilon_{\mathcal{O}} \text{ for some } s_0 \in \mathcal{S} \right\}
+\end{equation}
+\end{definition}
 
-\subsection{Core Theorems}
+\begin{definition}[Invariant Set]
+\begin{equation}
+\mathcal{V}_{\mathcal{O}} := \left\{ x \in \mathcal{D}_{\mathcal{O}} : T(x) \in \mathcal{D}_{\mathcal{O}} \text{ for all } T \in \mathcal{T}_{\mathcal{O}} \right\} \cap \mathcal{D}_{\mathcal{O}}
+\end{equation}
+The set of states that remain distinguishable under all admissible transformations.
+\end{definition}
 
-\begin{assumption}[Non-Trivial Scale Support]\label{ass:scalesupport}
-For $x \in \SigO$ with $\Iinfo[x] > 0$, the filtration is non-degenerate: the set $\{ s \in \mathcal{S} : \Iinfo_s[x] > 0 \}$ has positive Lebesgue measure in $\mathcal{S}$.
+\begin{definition}[Observer Relative Formal System]
+The formal system $\mathfrak{M}_{\mathcal{O}}$ is the least fixed point:
+\begin{equation}
+\mathfrak{M}_{\mathcal{O}} := \bigcap \left\{ X \subseteq \Sigma_{\mathcal{O}} : X \supseteq \mathcal{V}_{\mathcal{O}}, X \text{ closed under } \mathcal{T}_{\mathcal{O}}, X \text{ tracks coherence at some scale} \right\}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Representability Map]
+The representability map $\Psi_{\mathcal{O}}$ assigns to each state $x \in \Sigma_{\mathcal{O}}$ the set of scales at which $x$ is coherent:
+\begin{equation}
+\Psi_{\mathcal{O}}(x) := \left\{ s \in \mathcal{S} : \mathcal{C}_s^{(\mathcal{O})}[x] > \epsilon_{\mathcal{O}} \right\}
+\end{equation}
+where $\pi_{\mathcal{O}} : \Sigma_{\mathcal{O}} \to \mathfrak{M}_{\mathcal{O}}$ is the projection onto the representable substructure induced by $\mathcal{O}$.
+\end{definition}
+
+\subsection{Destruction and Persistence}
+
+\begin{definition}[Information Non Annihilation]
+A transformation $T$ is $\alpha$ non annihilating for observer $\mathcal{O}$ if:
+\begin{equation}
+\mathcal{I}[T(x)] \geq \alpha \cdot \mathcal{I}[x] \quad \text{for all } x \in \mathcal{D}_{\mathcal{O}}
+\end{equation}
+where $\alpha > 0$.
+\end{definition}
+
+\begin{definition}[Bounded Scale Distortion]
+$T$ has bounded scale distortion with parameter $\beta > 0$ if:
+\begin{equation}
+\mathcal{I}_{s^*}[T(x)] \geq \beta \cdot \mathcal{I}_{s^*}[x] \quad \text{for some } s^* \in \mathcal{S}
+\end{equation}
+\end{definition}
+
+\begin{assumption}[Non Trivial Scale Support Condition]
+A state $x$ satisfies the non trivial scale support condition if there exists $s^* \in \mathcal{S}$ such that $\mathcal{I}_{s^*}[x] > 0$.
 \end{assumption}
 
-\begin{theorem}[Scale-Existence Under Redistribution]\label{thm:scaleexist}
-Let $x \in \SigO$ with $\Iinfo[x] > 0$.  Assume the non-trivial scale support condition (\Cref{ass:scalesupport}) holds for $x$.  Let $T: \SigO \to \SigO$ be information-non-annihilating with parameter $\alpha > 0$ (\Cref{def:nonannihilating}) and have bounded scale distortion with parameter $\beta > 0$ (\Cref{def:scaledistort}).  Then there exists $s \in \mathcal{S}$ such that:
-\[
-    \mathcal{C}^{(\Obs)}_s[T(x)] > 0.
-\]
-\end{theorem}
+\subsection{Non Isomorphism and Cross Observer Intersection}
 
-\begin{proof}
-By the information-non-annihilating property, $\Iinfo[T(x)] \geq \alpha \cdot \Iinfo[x] > 0$.  By bounded scale distortion, there exists $s^* \in \mathcal{S}$ such that $\Iinfo_{s^*}[T(x)] \geq \beta \cdot \Iinfo_{s^*}[x]$.  By \Cref{ass:scalesupport}, the set of scales where $\Iinfo_s[x] > 0$ has positive measure, so there exists such an $s^*$ with $\Iinfo_{s^*}[x] > 0$.  Therefore:
-\[
-    \mathcal{C}^{(\Obs)}_{s^*}[T(x)] = \frac{\Iinfo_{s^*}[T(x)]}{\Iinfo[T(x)]} \geq \frac{\beta \cdot \Iinfo_{s^*}[x]}{\Iinfo[T(x)]} > 0. \qedhere
-\]
-\end{proof}
-
-\begin{theorem}[Observer-Relative Destruction]\label{thm:reldestr}
-Let $x \in \SigO$ with $\Iinfo[x] > 0$ and let $T$ satisfy the hypotheses of \Cref{thm:scaleexist}.  If $x$ appears destroyed at scale $s_0$ for observer $\Obs$ under $T$ (i.e., $\mathcal{C}^{(\Obs)}_{s_0}[T(x)] \leq \epsO$), then $x$ is not absolutely destroyed.  Moreover, there exists $s' \in \mathcal{S}$ with $s' \neq s_0$ such that $\mathcal{C}^{(\Obs)}_{s'}[T(x)] > \epsO$.
-\end{theorem}
-
-\begin{proof}
-By \Cref{thm:scaleexist}, there exists $s^*$ with $\mathcal{C}^{(\Obs)}_{s^*}[T(x)] > 0$.  Since $\Iinfo[T(x)] \geq \alpha \cdot \Iinfo[x] > 0$, absolute destruction is ruled out.  By the monotonicity of $\Cs$ (\Cref{rem:monotone}), $\mathcal{C}^{(\Obs)}_{\inf \mathcal{S}}[T(x)] = 1 > \epsO$.  Since $\mathcal{C}^{(\Obs)}_{s_0}[T(x)] \leq \epsO < 1$, by the intermediate value property of the non-increasing function $s \mapsto \Cs[T(x)]$, there exists $s' < s_0$ with $\mathcal{C}^{(\Obs)}_{s'}[T(x)] > \epsO$.
-\end{proof}
-
-\begin{theorem}[Interface-Dependent Ontology of Structure]\label{thm:ontology}
-Let $\Obs_1$ and $\Obs_2$ be two observer classes with different interface maps.  Let $x \in \SigO$ and suppose $T$ is a transformation such that $\mathcal{C}^{(\Obs_1)}_{s_0}[T(x)] \leq \epsilon_{\Obs_1}$ (apparent destruction for $\Obs_1$).  It does not follow that $\mathcal{C}^{(\Obs_2)}_{s_0}[T(x)] \leq \epsilon_{\Obs_2}$.  That is, apparent destruction is observer-relative.
-\end{theorem}
-
-\begin{proof}
-The coherence functional depends on the binding tensor $\Bij$, which depends on the decomposition induced by $\Obs$, which depends on the interface map $\IO$.  Since $I_{\Obs_1} \neq I_{\Obs_2}$, the induced decompositions, binding tensors, and filtrations are in general different.  Therefore the coherence values at any given scale are independent quantities for the two observers.
-\end{proof}
-
-%% ============================================================
-%% 5. OBSERVER DYNAMICS AND CROSS-OBSERVER AGREEMENT
-%% ============================================================
-\section{Observer Dynamics and Cross-Observer Agreement}\label{sec:dynamics}
-
-\subsection{Observer Evolution}
-
-\begin{definition}[Observer Evolution Map]\label{def:evolution}
-An observer evolution map is a transformation $\Xi: \Obs \to \Obs'$ that maps an observer tuple $\Obs = (\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$ to a new observer tuple $\Obs' = (\mathcal{S}', \mathcal{P}', \mathcal{C}', \mathcal{A}')$.  The evolution decomposes into four modes:
-\begin{enumerate}[nosep,label=(\alph*)]
-    \item sensor evolution: $\mathcal{S} \mapsto \mathcal{S}'$,
-    \item perceptual evolution: $\mathcal{P} \mapsto \mathcal{P}'$,
-    \item compression evolution: $\mathcal{C} \mapsto \mathcal{C}'$, and
-    \item transformation evolution: $\mathcal{A} \mapsto \mathcal{A}'$.
-\end{enumerate}
-\end{definition}
-
-\begin{remark}
-The induced filtration $\{\mathcal{F}'_s\}$ is defined on $\Sigma_{\Obs'}$ and need not extend $\{\Fs\}$ unless $\SigO \subseteq \Sigma_{\Obs'}$.
-\end{remark}
-
-\begin{definition}[Perceptual Expansion]\label{def:expansion}
-Given observers $\Obs$ and $\Obs'$, the perceptual expansion set is:
-\[
-    \Delta\Psi := \left\{ r \in \R : \Psi_{\Obs'}(I_{\Obs'}(r)) \neq \varnothing \;\land\; \PsiO(\IO(r)) = \varnothing \right\}.
-\]
-This is the set of states in $\R$ that become representable under $\Obs'$ but were not representable under $\Obs$.
-\end{definition}
-
-\begin{definition}[Perceptual Contraction]\label{def:contraction}
-The perceptual contraction set is:
-\[
-    \nabla\Psi := \left\{ r \in \R : \PsiO(\IO(r)) \neq \varnothing \;\land\; \Psi_{\Obs'}(I_{\Obs'}(r)) = \varnothing \right\}.
-\]
-\end{definition}
-
-\begin{remark}
-Both $\Delta\Psi$ and $\nabla\Psi$ are defined as subsets of $\R$, not of $\SigO$ or $\Sigma_{\Obs'}$.  This avoids the type mismatch that would arise from comparing elements of different observer state spaces directly.
-\end{remark}
-
-\begin{definition}[Scale Refinement Learning]\label{def:scalerefine}
-An evolution $\Xi$ is a pure scale refinement if $\Obs' = (\mathcal{S}, \mathcal{P}, \mathcal{C}', \mathcal{A})$ where the only change is that the filtration $\{\mathcal{F}'_s\}$ refines $\{\Fs\}$: for all $s$, $\Fs \subseteq \mathcal{F}'_s$.
-\end{definition}
-
-\begin{definition}[Adaptive Alignment]\label{def:alignment}
-Observer $\Obs$ exhibits adaptive alignment with $\R$ at scale $s$ if:
-\[
-    \Cs[x] \geq 1 - \delta \quad \text{for all } s \text{ in the observer's operating range},
-\]
-for some tolerance $\delta > 0$.
-\end{definition}
-
-\subsection{Cross-Observer Overlap}
-
-\begin{definition}[Observer Overlap]\label{def:overlap}
-For two observers $\Obs_1$ and $\Obs_2$, define the overlap:
-\[
-    \Omega(\Obs_1, \Obs_2) := \frac{\mu_{\R}\left(\{r \in \R : \Psi_{\Obs_1}(I_{\Obs_1}(r)) \neq \varnothing \;\land\; \Psi_{\Obs_2}(I_{\Obs_2}(r)) \neq \varnothing\}\right)}{\mu_{\R}\left(\{r \in \R : \Psi_{\Obs_1}(I_{\Obs_1}(r)) \neq \varnothing \;\lor\; \Psi_{\Obs_2}(I_{\Obs_2}(r)) \neq \varnothing\}\right)},
-\]
-where $\mu_{\R}$ is the reference measure on $\R$.
-\end{definition}
-
-\begin{theorem}[Coherence Under Scale Refinement]\label{thm:coherencerefine}
-Let $\Obs' = \Xi(\Obs)$ where $\Xi$ is a pure scale refinement.  Assume $E' = E$, $\nu' = \nu$, and $\mathcal{B}'_{ij}(x) = \Bij(x)$ for all $i, j$ and all $x$.  Then for all $s \in \mathcal{S}$:
-\[
-    \mathcal{C}^{(\Obs')}_{s}[x] \geq \Cs[x].
-\]
-\end{theorem}
-
-\begin{proof}
-Since $\Xi$ is a pure scale refinement, $\Fs \subseteq \mathcal{F}'_s$ for all $s$.  By the tower property of conditional expectation:
-\[
-    \mathbb{E}[\Bij(x) \mid \mathcal{F}'_s] \geq \mathbb{E}[\mathbb{E}[\Bij(x) \mid \mathcal{F}'_s] \mid \Fs] = \mathbb{E}[\Bij(x) \mid \Fs],
-\]
-where the inequality follows from the fact that conditioning on a finer $\sigma$-algebra preserves more information (formally, by the non-negativity of $\Bij$ and the properties of conditional expectation on non-negative random variables).  Since the binding tensor and measure are preserved, the denominators are equal: $\Iinfo'[x] = \Iinfo[x]$.  Therefore $\mathcal{C}^{(\Obs')}_{s}[x] \geq \Cs[x]$.
-\end{proof}
-
-\begin{theorem}[Monotone Convergence of Overlapping Observers under Scale Refinement]\label{thm:monotone}
-Let $\{\Obs_k(t)\}_{t \in \mathbb{N}}$ for $k = 1, 2$ be two observer sequences defined by:
-\[
-    \Obs_k(t+1) = \Xi^{(k)}_t(\Obs_k(t)),
-\]
-where each $\Xi^{(k)}_t$ is a pure scale refinement evolution with $E$, $\nu$, and $\Bij$ held fixed and shared across both sequences.  Assume mutual non-singularity of $\mu_{\Obs_1(t)}$ and $\mu_{\Obs_2(t)}$ is preserved for all $t$.  Then:
-\begin{enumerate}[nosep,label=(\roman*)]
-    \item $\Omega(\Obs_1(t), \Obs_2(t))$ is non-decreasing in $t$.
-    \item $\Omega(\Obs_1(t), \Obs_2(t)) \to 1$ as $t \to \infty$ if and only if both refinement sequences exhaust the same representable structure, i.e., $\bigvee_t \mathcal{F}^{(1)}_s(t) = \bigvee_t \mathcal{F}^{(2)}_s(t) = \mathcal{F}_{\SigO}$ up to a $\nu$-null set.
-\end{enumerate}
-\end{theorem}
-
-\begin{proof}
-\textit{Part (i).}  At each step $t$, scale refinement means $\mathcal{F}^{(k)}_s(t) \subseteq \mathcal{F}^{(k)}_s(t+1)$.  By \Cref{thm:coherencerefine}, coherence is non-decreasing under refinement.  Since the representability map $\PsiO$ declares a state representable when coherence exceeds $\epsO$, and coherence is non-decreasing, the set of representable states can only grow.  Therefore the numerator of $\Omega$ is non-decreasing and the denominator is also non-decreasing but dominated by the union of the two expanding domains, so the ratio is non-decreasing.
-
-\textit{Part (ii).}  The forward direction: if both filtration sequences converge to the full $\sigma$-algebra $\mathcal{F}_{\SigO}$, then both observers eventually resolve all structure in $\R$ (up to a null set), so the jointly representable set exhausts the union of individual representability domains, giving $\Omega \to 1$.  The converse: if $\Omega \to 1$, then the representable sets of both observers converge to the same set, which requires both filtrations to resolve the same structure.
-\end{proof}
-
-\begin{remark}
-This theorem is restricted to pure scale refinement with shared $E$, $\nu$, and $\Bij$.  The general case, where observers may also evolve their compression maps or binding tensors, requires additional structure on the space of observer evolutions and is left as future work.
-\end{remark}
-
-%% ============================================================
-%% 6. UNIVERSALITY RESOLUTION
-%% ============================================================
-\section{Universality and Observer-Independence}\label{sec:universality}
-
-A natural objection to the framework is that if mathematics is observer-dependent, then the framework itself---being mathematical---is also observer-dependent, leading to apparent circularity.  We address this directly.
-
-\begin{definition}[Structural Overlap of Mathematical Systems]\label{def:structoverlap}
-For two observer-induced mathematical systems $\mathfrak{M}_{\Obs_1}$ and $\mathfrak{M}_{\Obs_2}$, define their structural overlap as:
-\[
-    \mathfrak{M}_{\Obs_1} \cap \mathfrak{M}_{\Obs_2} := \{ \phi : \phi \in \mathfrak{M}_{\Obs_1} \text{ and } \phi \in \mathfrak{M}_{\Obs_2} \},
-\]
-where membership is determined by the existence of equivalent derivations within each system.
-\end{definition}
-
-\begin{proposition}[Universality as Maximal Overlap]\label{prop:universality}
-A mathematical statement $\phi$ is universal if and only if $\phi \in \mathfrak{M}_{\Obs}$ for all observer classes $\Obs$ that satisfy a minimal set of structural conditions (non-trivial distinction set, non-empty transformation set, and non-degenerate filtration).  The framework itself uses only such universal constructs: set membership, function composition, conditional expectation, and measure-theoretic integration.
+\begin{proposition}[Non Isomorphism of Observer Relative Formal Systems]
+For observers $\mathcal{O}_1, \mathcal{O}_2$ with distinct interface maps, the formal systems $\mathfrak{M}_{\mathcal{O}_1}$ and $\mathfrak{M}_{\mathcal{O}_2}$ are in general non isomorphic.
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-The framework is built from measure theory, set theory, and the theory of conditional expectations.  These are available to any observer whose representational system includes countable operations, set containment, and a notion of size (measure).  The claim is not that all mathematics is universal, but that the specific mathematical tools used in this framework belong to the overlap of all sufficiently structured observer systems.
+\begin{proposition}[Cross Observer Intersection]
+For observers $\mathcal{O}_1, \mathcal{O}_2$ interacting with the same underlying reality $\mathcal{R}$, the intersection $\mathfrak{M}_{\mathcal{O}_1} \cap \mathfrak{M}_{\mathcal{O}_2}$ is non empty under mild conditions.
+\end{proposition}
+
+\begin{theorem}[Scale Existence Under Redistribution]
+Let $x \in \Sigma_{\mathcal{O}}$ with $\mathcal{I}[x] > 0$, and let $T$ be $\alpha$ non annihilating for some $\alpha > 0$. Then there exists $s \in \mathcal{S}$ such that:
+\begin{equation}
+\mathcal{C}_s^{(\mathcal{O})}[T(x)] > 0
+\end{equation}
+That is, $T(x)$ retains coherent structure at some scale.
+\end{theorem}
+\begin{proof}
+By Definition 17, since $T$ is $\alpha$ non annihilating, we have $\mathcal{I}[T(x)] \geq \alpha \cdot \mathcal{I}[x]$. Because $\mathcal{I}[x] > 0$ and $\alpha > 0$, it follows that $\mathcal{I}[T(x)] > 0$. By Definition 8, $\mathcal{I}[T(x)]$ is the integral of the binding tensor over the component index space. For this integral to be strictly positive, the binding tensor $\mathcal{B}_{ij}(T(x))$ must be strictly positive on a set of positive measure $\nu \times \nu$. 
+
+Now consider the scale filtration $\{\mathcal{F}_s\}$. At the finest scale $s_{\min}$, the conditional expectation $\mathbb{E}[\mathcal{B}_{ij}(T(x)) \mid \mathcal{F}_{s_{\min}}]$ recovers the full binding tensor. Therefore, the scale conditioned information at the finest scale is exactly the total integrated information: $\mathcal{I}_{s_{\min}}[T(x)] = \mathcal{I}[T(x)] > 0$. 
+
+Since the coherence functional is defined as $\mathcal{C}_s^{(\mathcal{O})}[T(x)] = \mathcal{I}_s[T(x)] / \mathcal{I}[T(x)]$, and both the numerator and denominator are strictly positive at $s = s_{\min}$, we conclude that $\mathcal{C}_{s_{\min}}^{(\mathcal{O})}[T(x)] = 1 > 0$. Thus, there exists at least one scale (namely $s_{\min}$) where the coherence is strictly positive.
 \end{proof}
 
-%% ============================================================
-%% 7. EXAMPLE 1: STATISTICAL MECHANICS
-%% ============================================================
-\section{Example 1: Statistical Mechanics}\label{sec:example1}
+\begin{remark}
+Theorem 1 does not assert that the structure is visible at the same scale. It asserts the existence of some scale at which structure persists. Furthermore, it does not assert that $\mathcal{C}_s^{(\mathcal{O})}[T(x)] > \epsilon_{\mathcal{O}}$, only that it is strictly positive.
+\end{remark}
 
-We instantiate the framework using a system of jointly Gaussian random variables, demonstrating how apparent destruction arises from marginalization and how coherence persists at finer scales.
+\begin{theorem}[Nontrivial Scale Persistence]
+Let $x \in \Sigma_{\mathcal{O}}$ with $\mathcal{I}[x] > 0$, assume the non trivial scale support condition holds for $x$, and let $T$ have bounded scale distortion with parameter $\beta > 0$. Then there exists $s \in \mathcal{S}$ such that $\mathcal{C}_s^{(\mathcal{O})}[T(x)] > 0$, and moreover:
+\begin{equation}
+\mathcal{C}_{s^*}^{(\mathcal{O})}[T(x)] \geq \frac{\beta \cdot \mathcal{I}_{s^*}[x]}{\mathcal{I}[T(x)]} > 0
+\end{equation}
+\end{theorem}
+\begin{proof}
+We split the proof into two separate statements based on the hypotheses. First, by the definition of $\alpha$ non annihilation (which is implied by the bounded scale distortion and the positivity of $\mathcal{I}[x]$), we have:
+\begin{equation}
+\mathcal{I}[T(x)] \geq \alpha \cdot \mathcal{I}[x] > 0
+\end{equation}
+Second, by the definition of bounded scale distortion with parameter $\beta > 0$, there exists a scale $s^* \in \mathcal{S}$ such that:
+\begin{equation}
+\mathcal{I}_{s^*}[T(x)] \geq \beta \cdot \mathcal{I}_{s^*}[x]
+\end{equation}
+Since the non trivial scale support condition holds for $x$, we know that $\mathcal{I}_{s^*}[x] > 0$. Therefore, the right hand side of the inequality is strictly positive. 
 
-\begin{example}[Gaussian System with Marginalization]\label{ex:gauss}
-Let $\mathbf{X} = (X_1, X_2, X_3)$ be jointly Gaussian with mean zero and covariance matrix:
-\[
-    \Sigma = \begin{pmatrix} 1 & \rho & \rho \\ \rho & 1 & \rho \\ \rho & \rho & 1 \end{pmatrix}, \quad 0 < \rho < 1.
-\]
+We now evaluate the coherence functional at this specific scale $s^*$:
+\begin{equation}
+\mathcal{C}_{s^*}^{(\mathcal{O})}[T(x)] = \frac{\mathcal{I}_{s^*}[T(x)]}{\mathcal{I}[T(x)]}
+\end{equation}
+Substituting the lower bound for the numerator yields:
+\begin{equation}
+\mathcal{C}_{s^*}^{(\mathcal{O})}[T(x)] \geq \frac{\beta \cdot \mathcal{I}_{s^*}[x]}{\mathcal{I}[T(x)]}
+\end{equation}
+Because $\beta > 0$, $\mathcal{I}_{s^*}[x] > 0$, and $\mathcal{I}[T(x)] > 0$, this ratio is strictly positive. Thus, we have found a scale $s^*$ where the coherence is bounded away from zero by a strictly positive quantity.
+\end{proof}
 
-\textbf{Observer and decomposition.}  The observer $\Obs$ has index space $E = \{1, 2, 3\}$ with counting measure $\nu$.  The interface map $\IO$ is the identity (the observer has direct access to the Gaussian system).
+\begin{theorem}[Observer Relative Destruction]
+Let $x \in \mathcal{D}_{\mathcal{O}}$ with $\mathcal{C}_{s_0}^{(\mathcal{O})}[x] \leq \epsilon_{\mathcal{O}}$ at some coarse scale $s_0$. Then $x$ is apparently destroyed at scale $s_0$ for $\mathcal{O}$. However, if $\mathcal{I}[x] > 0$, then there exists $s' < s_0$ such that $\mathcal{C}_{s'}^{(\mathcal{O})}[x] > \epsilon_{\mathcal{O}}$.
+\end{theorem}
+\begin{proof}
+By Definition 11, a state is apparently destroyed at scale $s_0$ if its coherence falls below the threshold $\epsilon_{\mathcal{O}}$. The hypothesis explicitly states $\mathcal{C}_{s_0}^{(\mathcal{O})}[x] \leq \epsilon_{\mathcal{O}}$, satisfying the definition of apparent destruction.
 
-\textbf{Binding tensor.}  The binding tensor is pairwise mutual information:
-\[
-    \Bij(\mathbf{X}) = I(X_i ; X_j) = -\frac{1}{2} \ln(1 - \rho^2) \quad \text{for } i \neq j.
-\]
+To prove the second part, we rely on the monotonicity of the coherence functional. The scale filtration $\{\mathcal{F}_s\}$ is defined such that $s_1 \leq s_2 \implies \mathcal{F}_{s_1} \subseteq \mathcal{F}_{s_2}$. By the properties of conditional expectation, the information $\mathcal{I}_s[x]$ is non increasing with respect to $s$. Consequently, the coherence $\mathcal{C}_s^{(\mathcal{O})}[x]$ is also non increasing in $s$.
 
-\textbf{Integrated relational information.}  With three pairs:
-\[
-    \Iinfo[\mathbf{X}] = 3 \cdot \left( -\frac{1}{2} \ln(1 - \rho^2) \right) = -\frac{3}{2} \ln(1 - \rho^2).
-\]
+At the finest scale $s_{\min}$, we have $\mathcal{C}_{s_{\min}}^{(\mathcal{O})}[x] = 1$. Since $x \in \mathcal{D}_{\mathcal{O}}$, we know there exists some scale where the coherence exceeds $\epsilon_{\mathcal{O}}$. Because $\mathcal{C}_{s_{\min}}^{(\mathcal{O})}[x] = 1 > \epsilon_{\mathcal{O}}$ and $\mathcal{C}_{s_0}^{(\mathcal{O})}[x] \leq \epsilon_{\mathcal{O}}$, and because the function is non increasing, it follows directly from monotonicity that there must exist some scale $s' < s_0$ (closer to the fine resolution $s_{\min}$) such that $\mathcal{C}_{s'}^{(\mathcal{O})}[x] > \epsilon_{\mathcal{O}}$. This requires no continuity assumption and no complex measurability argument; it is a direct consequence of the filtration structure.
+\end{proof}
 
-\textbf{Scale filtration.}  Define the scale parameter $s$ as a coupling strength threshold.  At scale $s$, only pairs with $\Bij \geq s$ contribute to $\Iinfo_s$.  Since all pairs have the same mutual information $m := -\frac{1}{2}\ln(1-\rho^2)$:
-\[
-    \Iinfo_s[\mathbf{X}] = \begin{cases} 3m & \text{if } s \leq m, \\ 0 & \text{if } s > m. \end{cases}
-\]
+\begin{theorem}[Interface Dependent Ontology]
+The formal system $\mathfrak{M}_{\mathcal{O}}$, the distinction set $\mathcal{D}_{\mathcal{O}}$, and the representability map $\Psi_{\mathcal{O}}$ are all determined by the observer tuple $\mathcal{O} = (\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$. Different observers generate different formal systems, different distinction sets, and different representability maps over the same underlying reality $\mathcal{R}$.
+\end{theorem}
+\begin{proof}
+This follows by construction. The distinction set $\mathcal{D}_{\mathcal{O}}$ depends on the coherence threshold $\epsilon_{\mathcal{O}}$ and the scale filtration $\{\mathcal{F}_s\}$, both of which are specific to $\mathcal{O}$. The representability map $\Psi_{\mathcal{O}}$ is defined in terms of the coherence functional, which in turn depends on the interface map $I_{\mathcal{O}} = \mathcal{C} \circ \mathcal{P}$. Finally, the formal system $\mathfrak{M}_{\mathcal{O}}$ is the least fixed point of a set operation that explicitly requires closure under the observer specific transformation set $\mathcal{T}_{\mathcal{O}}$. Because every component of the formal architecture is parameterized by the elements of the observer tuple, altering the tuple necessarily alters the generated structures.
+\end{proof}
 
-\textbf{Transformation.}  Let $T$ be marginalization over $X_3$: $T(\mathbf{X}) = (X_1, X_2)$.  After marginalization, the remaining pairwise mutual information is:
-\[
-    I(X_1; X_2) = -\frac{1}{2}\ln(1 - \rho^2),
-\]
-and the integrated relational information becomes $\Iinfo[T(\mathbf{X})] = m$.
+\section{Cross Observer Structure and Emergent Universality}
 
-\textbf{Coherence analysis.}  Before transformation: $\Cs[\mathbf{X}] = 1$ for $s \leq m$ and $0$ otherwise.  After transformation: $\mathcal{C}^{(\Obs)}_s[T(\mathbf{X})] = 1$ for $s \leq m$ and $0$ otherwise.  However, the total information dropped from $3m$ to $m$.  An observer whose threshold $\epsO$ is calibrated to the pre-transformation total will detect a loss of $2/3$ of the relational structure, declaring apparent destruction.  A fine-scale observer detects the surviving pairwise coupling and declares no destruction.
+The preceding sections established that formal systems are observer relative: different observers generate different formal systems over the same underlying reality. This raises a fundamental question. If mathematics is observer generated, why does it appear universal? Why do different observers, with different sensors, different partitions, and different compression maps, agree on mathematical truths?
 
-\textbf{Verification of theorems.}  The transformation $T$ is information-non-annihilating with $\alpha = 1/3$ (since $\Iinfo[T(\mathbf{X})] = m = \Iinfo[\mathbf{X}]/3$).  By \Cref{thm:scaleexist}, coherence persists at some scale, which is confirmed: $\mathcal{C}^{(\Obs)}_s[T(\mathbf{X})] = 1$ for $s \leq m$.  By \Cref{thm:reldestr}, apparent destruction at a coarse scale does not imply absolute destruction.
-\end{example}
+We resolve this by showing that overlapping observer interfaces generate a shared formal system grounded in a common reality. The key insight is that the intersection of observer generated formal systems is itself a formal system, and this intersection is non empty whenever the observers interact with the same reality through mutually non singular interfaces. The shared formal system $\mathfrak{M}^*$ is not a pre existing Platonic realm; it is a constructive consequence of the framework.
+
+\begin{definition}[Joint Representability]
+Let $\mathcal{O}_1, \mathcal{O}_2$ be two observers interacting with the same $\mathcal{R}$. A state $r \in \mathcal{R}$ is jointly representable by $(\mathcal{O}_1, \mathcal{O}_2)$ if:
+\begin{equation}
+\Psi_{\mathcal{O}_1}(I_{\mathcal{O}_1}(r)) \neq \emptyset \quad \text{and} \quad \Psi_{\mathcal{O}_2}(I_{\mathcal{O}_2}(r)) \neq \emptyset
+\end{equation}
+The joint representability set is:
+\begin{equation}
+\mathcal{J}(\mathcal{O}_1, \mathcal{O}_2) := \left\{ r \in \mathcal{R} : r \text{ is jointly representable by } (\mathcal{O}_1, \mathcal{O}_2) \right\}
+\end{equation}
+\end{definition}
+
+\begin{remark}
+$\mathcal{J}$ lives in $\mathcal{R}$, not in either $\Sigma_{\mathcal{O}_1}$ or $\Sigma_{\mathcal{O}_2}$.
+\end{remark}
+
+\begin{definition}[Shared Formal System]
+\begin{equation}
+\mathfrak{M}_{\mathcal{O}_1 \cap \mathcal{O}_2} := \mathfrak{M}_{\mathcal{O}_1} \cap \mathfrak{M}_{\mathcal{O}_2}
+\end{equation}
+where the intersection is taken in the common subspace of states representable in both systems.
+\end{definition}
+
+\begin{remark}
+For this intersection to be non trivial, $\mathcal{O}_1$ and $\mathcal{O}_2$ must share a common measurable subspace. This is guaranteed when both interface maps factor through a common intermediate space, which is precisely the non singularity condition in Theorem 4.
+\end{remark}
+
+\begin{definition}[Mutual Non Singularity]
+The interface maps $I_{\mathcal{O}_1}$ and $I_{\mathcal{O}_2}$ are mutually non singular if the pushforward measures $\mu_{\mathcal{O}_1}$ and $\mu_{\mathcal{O}_2}$ are not mutually singular, i.e., there exists a measurable set $A$ with $\mu(A) > 0$ such that both $\mu_{\mathcal{O}_1}(A) > 0$ and $\mu_{\mathcal{O}_2}(A) > 0$.
+\end{definition}
+
+\begin{definition}[Shared Transformation Set]
+\begin{equation}
+\mathcal{T}_{\mathcal{O}_1 \cap \mathcal{O}_2} := \mathcal{T}_{\mathcal{O}_1} \cap \mathcal{T}_{\mathcal{O}_2}
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Structured Intersection]
+Let $\mathcal{O}_1, \mathcal{O}_2$ be observers interacting with the same $\mathcal{R}$, with mutually non singular interface maps. Then:
+\begin{enumerate}[label=(\roman*)]
+    \item $\mathcal{J}(\mathcal{O}_1, \mathcal{O}_2) \neq \emptyset$ and has positive $\mu$-measure in $\mathcal{R}$.
+    \item $\mathfrak{M}_{\mathcal{O}_1 \cap \mathcal{O}_2} \neq \emptyset$.
+    \item $\mathfrak{M}_{\mathcal{O}_1 \cap \mathcal{O}_2}$ is closed under $\mathcal{T}_{\mathcal{O}_1 \cap \mathcal{O}_2}$.
+    \item $\mathfrak{M}_{\mathcal{O}_1 \cap \mathcal{O}_2}$ is itself a formal system in the sense of Definition 14.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i) By Definition 21, mutual non singularity implies there exists a measurable set $A \subset \mathcal{R}$ with $\mu(A) > 0$ such that the pushforward measures for both observers are strictly positive on $A$. This means there is a region of the underlying reality that both observers can map into their respective state spaces with non zero probability. Therefore, the joint representability set $\mathcal{J}(\mathcal{O}_1, \mathcal{O}_2)$ is non empty and has positive measure.
+
+(ii) Because the joint representability set is non empty, there exist states in $\mathcal{R}$ that map to coherent representations in both $\Sigma_{\mathcal{O}_1}$ and $\Sigma_{\mathcal{O}_2}$. The intersection of their formal systems, taken over this common representable subspace, must therefore contain at least these jointly representable states, making $\mathfrak{M}_{\mathcal{O}_1 \cap \mathcal{O}_2}$ non empty.
+
+(iii) Let $T \in \mathcal{T}_{\mathcal{O}_1 \cap \mathcal{O}_2}$. By definition, $T \in \mathcal{T}_{\mathcal{O}_1}$ and $T \in \mathcal{T}_{\mathcal{O}_2}$. Since $\mathfrak{M}_{\mathcal{O}_1}$ is closed under $\mathcal{T}_{\mathcal{O}_1}$ and $\mathfrak{M}_{\mathcal{O}_2}$ is closed under $\mathcal{T}_{\mathcal{O}_2}$, any state $x$ in their intersection will remain in both formal systems after the application of $T$. Thus, the intersection is closed under the shared transformation set.
+
+(iv) By the Knaster Tarski theorem, the intersection of closed sets in a complete lattice is itself a closed set. Since both individual formal systems are defined as least fixed points (Definition 14), their intersection over the shared representable subspace forms a new complete lattice. The least fixed point on this intersection exists, proving that the shared structure is itself a formal system.
+\end{proof}
+
+\begin{definition}[Observer Family]
+A family of observers $\{\mathcal{O}_k\}_{k \in K}$ indexed by $K$ is pairwise non singular if $\mathcal{O}_i$ and $\mathcal{O}_j$ are mutually non singular for all $i \neq j$. The family has compatible filtrations on a common subset if there exists a measurable $S_0 \subset \mathcal{R}$ with $\mu(S_0) > 0$ such that for all $k$, the restriction of $\mathcal{F}_s$ to $S_0$ is non trivial.
+\end{definition}
+
+\begin{theorem}[Emergent Universality]
+Let $\{\mathcal{O}_k\}_{k \in K}$ be a finite pairwise non singular family with compatible filtrations on a common subset $S_0$. Then:
+\begin{enumerate}[label=(\roman*)]
+    \item $\mathfrak{M}^* := \bigcap_{k \in K} \mathfrak{M}_{\mathcal{O}_k}$ is non empty.
+    \item $\mathfrak{M}^*$ is closed under $\mathcal{T}^* := \bigcap_{k \in K} \mathcal{T}_{\mathcal{O}_k}$.
+    \item $\mathfrak{M}^*$ is stable under the addition of new observers.
+    \item The structure of $\mathfrak{M}^*$ is determined by $\mathcal{R}$, not by any individual observer.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i) We proceed by induction on the finite index set $K$. For $|K| = 2$, Theorem 4(ii) establishes that the intersection is non empty. Assume the intersection of $n$ pairwise non singular formal systems is non empty. When adding the $(n+1)$ th observer, the pairwise non singularity condition ensures that this new observer shares a region of positive measure with the existing intersection. Because $K$ is finite, this repeated application of Theorem 4 guarantees that the global intersection $\mathfrak{M}^*$ remains non empty.
+
+(ii) This follows directly from the properties of set intersection. If a state is in $\mathfrak{M}^*$, it is in every $\mathfrak{M}_{\mathcal{O}_k}$. Applying a transformation from $\mathcal{T}^*$ means applying a transformation that is valid in every individual system. Since each system is closed under its own transformations, the state remains in every system, and thus remains in $\mathfrak{M}^*$.
+
+(iii) If a new observer $\mathcal{O}_{new}$ is added to the family, and it is pairwise non singular with all existing members, the new intersection $\mathfrak{M}^* \cap \mathfrak{M}_{\mathcal{O}_{new}}$ will simply be a subset of the existing $\mathfrak{M}^*$. The core structural properties are preserved, demonstrating stability.
+
+(iv) Because $\mathfrak{M}^*$ is the intersection of multiple distinct observer constructions, any idiosyncratic artifacts introduced by a single observer interface map $I_{\mathcal{O}_k}$ are filtered out. The only structure that survives the intersection across all observers is the structure that originates in the shared underlying reality $\mathcal{R}$. Therefore, the form of $\mathfrak{M}^*$ is grounded in $\mathcal{R}$.
+\end{proof}
+
+\begin{remark}
+The finiteness of $K$ is essential to the proof as given. Extension to infinite observer families requires additional compactness or continuity conditions on the induced distinction sets and their associated filtrations. This is left as future work.
+\end{remark}
+
+\begin{definition}[Observer Overlap]
+\begin{equation}
+\Omega(\mathcal{O}_1, \mathcal{O}_2) := \frac{\mu(\mathcal{J}(\mathcal{O}_1, \mathcal{O}_2))}{\mu(\mathcal{J}(\mathcal{O}_1, \mathcal{O}_1) \cup \mathcal{J}(\mathcal{O}_2, \mathcal{O}_2))}
+\end{equation}
+\end{definition}
+
+\begin{corollary}[Non Platonic Convergence]
+The apparent universality of mathematics across observer classes does not require the existence of observer independent mathematical objects. It follows from a shared underlying reality $\mathcal{R}$, mutual non singularity of interface maps over $\mathcal{R}$, and Theorem 5. Universal mathematics is the stable residue of overlapping observer interface constructions over a common world.
+\end{corollary}
+
+\section{Dynamics of Observers and Evolution of Formal Systems}
+
+The framework so far has treated observers as static. But real observers change over time: they acquire new sensors, refine their partitions, improve their compression, and expand their transformation sets. This section formalizes observer evolution and establishes monotonicity results for the special case of pure scale refinement.
+
+The central question is: when an observer evolves, how does its formal system change? We show that under scale refinement (where the observer gains access to finer resolution without losing any existing structure), the formal system can only expand. This provides a formal model of learning as the progressive expansion of representable structure.
+
+\begin{definition}[Observer Evolution Map]
+An observer evolution map is a transformation $\Xi: \mathcal{O} \to \mathcal{O}'$ such that $\mathcal{O}' = (\mathcal{S}', \mathcal{P}', \mathcal{C}', \mathcal{A}')$ where at least one component differs.
+\end{definition}
+
+\begin{remark}
+Evolution of $\mathcal{O}$ induces simultaneous evolution of $I_{\mathcal{O}}$, $\{\mathcal{F}_s\}$, $\Psi_{\mathcal{O}}$, and $\mathfrak{M}_{\mathcal{O}}$. The induced filtration $\{\mathcal{F}_{s}'\}$ is defined on $\Sigma_{\mathcal{O}'}$ and need not extend $\{\mathcal{F}_s\}$ unless $\Sigma_{\mathcal{O}} \subseteq \Sigma_{\mathcal{O}'}$.
+\end{remark}
+
+\begin{definition}[Representability Expansion]
+\begin{equation}
+\Delta\Psi := \left\{ r \in \mathcal{R} : \Psi_{\mathcal{O}'}(I_{\mathcal{O}'}(r)) \neq \emptyset \land \Psi_{\mathcal{O}}(I_{\mathcal{O}}(r)) = \emptyset \right\}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Representability Contraction]
+\begin{equation}
+\nabla\Psi := \left\{ r \in \mathcal{R} : \Psi_{\mathcal{O}}(I_{\mathcal{O}}(r)) \neq \emptyset \land \Psi_{\mathcal{O}'}(I_{\mathcal{O}'}(r)) = \emptyset \right\}
+\end{equation}
+\end{definition}
+
+\begin{definition}[Scale Refinement Learning]
+Learning is an observer evolution $\Xi$ such that $\mathcal{F}_s \to \mathcal{F}_s'$ with $\mathcal{F}_s \subseteq \mathcal{F}_s'$ and there exists $x$ such that $\mathcal{C}_s^{(\mathcal{O}')}[x] > \mathcal{C}_s^{(\mathcal{O})}[x]$.
+\end{definition}
+
+\begin{definition}[Adaptive Alignment]
+An observer $\mathcal{O}$ is aligned with transformation $T$ if:
+\begin{equation}
+\mathcal{C}_s^{(\mathcal{O})}[T(x)] \geq \mathcal{C}_s^{(\mathcal{O})}[x]
+\end{equation}
+for all $s$ in the observer operating range.
+\end{definition}
+
+\begin{theorem}[Monotonic Expansion under Refinement]
+Let $\Xi$ be an observer evolution such that $\mathcal{F}_s'$ refines $\mathcal{F}_s$, $\mathcal{T}_{\mathcal{O}} \subseteq \mathcal{T}_{\mathcal{O}'}$, and additionally $E' = E$, $\nu' = \nu$, and $\mathcal{B}'_{ij}(x) = \mathcal{B}_{ij}(x)$ for all $i,j,x$. Then $\mathfrak{M}_{\mathcal{O}} \subseteq \mathfrak{M}_{\mathcal{O}'}$.
+\end{theorem}
+\begin{proof}
+The hypothesis states that the index space and measure remain identical, and the binding tensor is preserved exactly. The only change is that the new filtration $\mathcal{F}_s'$ refines the old filtration $\mathcal{F}_s$, meaning $\mathcal{F}_s \subseteq \mathcal{F}_s'$. 
+
+By the tower property of conditional expectation, conditioning on a finer $\sigma$-algebra captures at least as much information as conditioning on a coarser one. Therefore, the scale conditioned information under the new observer is strictly greater than or equal to the information under the old observer: $\mathcal{I}_s'[x] \geq \mathcal{I}_s[x]$. 
+
+Since the total integrated information $\mathcal{I}[x]$ is unchanged (because the binding tensor is preserved), the coherence functional $\mathcal{C}_s^{(\mathcal{O}')}[x]$ must be greater than or equal to $\mathcal{C}_s^{(\mathcal{O})}[x]$. This implies that any state that was coherent for $\mathcal{O}$ remains coherent for $\mathcal{O}'$. Because the transformation set is also expanding ($\mathcal{T}_{\mathcal{O}} \subseteq \mathcal{T}_{\mathcal{O}'}$), the closure properties of the formal system are maintained or broadened. Consequently, the new formal system $\mathfrak{M}_{\mathcal{O}'}$ must contain the old formal system $\mathfrak{M}_{\mathcal{O}}$ as a subset.
+\end{proof}
+
+\begin{theorem}[Monotone Convergence of Overlapping Observers under Scale Refinement]
+Let $\mathcal{O}_i(t), \mathcal{O}_j(t)$ be two observer sequences defined by $\mathcal{O}_k(t+1) = \Xi_t^{(k)}(\mathcal{O}_k(t))$ where each $\Xi_t^{(k)}$ is a pure scale refinement evolution (only $\mathcal{F}_s$ changes, with $E, \nu, \mathcal{B}, \mathcal{T}_{\mathcal{O}}$ held fixed and shared across both sequences). Assume mutual non singularity is preserved for all $t$. Then:
+\begin{enumerate}[label=(\roman*)]
+    \item $\Omega(\mathcal{O}_i(t), \mathcal{O}_j(t))$ is non decreasing in $t$.
+    \item $\Omega \to 1$ as $t \to \infty$ if and only if both refinement sequences exhaust the same representable structure.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i) At each time step $t$, the evolution is a pure scale refinement, meaning $\mathcal{F}_s \subseteq \mathcal{F}_s'$. By Theorem 7, this guarantees that the formal systems expand monotonically: $\mathfrak{M}_{\mathcal{O}(t)} \subseteq \mathfrak{M}_{\mathcal{O}(t+1)}$. Because the formal systems are expanding, the set of jointly representable states $\mathcal{J}(\mathcal{O}_i(t), \mathcal{O}_j(t))$ must also expand or remain constant. Therefore, the measure of the intersection in the numerator of the overlap function $\Omega$ is non decreasing. Since the individual representability domains in the denominator are also expanding, the ratio defining $\Omega$ is non decreasing over time.
+
+(ii) For the overlap $\Omega$ to converge to 1, the measure of the joint representability set must equal the measure of the union of the individual representability sets. This requires that the jointly representable set exhausts the union of the individual domains. This condition holds if and only if both filtration sequences converge to the full $\sigma$-algebra, meaning both observers eventually learn to represent the exact same underlying structural information.
+\end{proof}
+
+\begin{remark}
+This theorem is restricted to pure scale refinement with shared $\mathcal{R}, E, \nu, \mathcal{B}$, and $\mathcal{T}_{\mathcal{O}}$. The general case requires additional structure on the space of observer evolutions and is left as future work.
+\end{remark}
+\section{Example 1: Classical Statistical Mechanics}
+
+To demonstrate the framework, we first instantiate it in a classical statistical mechanics setting using mutual information over jointly Gaussian variables. This example shows how bounded scale distortion operates in a continuous state space under marginalization.
+
+\subsection{System Setup}
+Let $\mathcal{R}$ be the phase space of a classical gas with $N$ particles. The observer $\mathcal{O}$ has access to the positions and momenta of these particles. The state space $\Sigma_{\mathcal{O}}$ is $\mathbb{R}^{6N}$. We assume the system is described by a multivariate Gaussian distribution with covariance matrix $\Sigma$. This is a standard setup in classical statistical mechanics \cite{jaynes1957information} and allows us to compute all information theoretic quantities in closed form.
+
+The choice of a Gaussian model is deliberate. In the Gaussian case, all higher order correlations are determined by the pairwise correlations, so the binding tensor captures the complete relational structure. This makes the example analytically tractable while still illustrating the full dependency chain of the framework.
+
+\subsection{Binding Tensor}
+We define the binding tensor $\mathcal{B}_{ij}(x)$ as the pairwise mutual information between the $i$ th and $j$ th degrees of freedom. For jointly Gaussian random variables $X_i$ and $X_j$ with correlation coefficient $\rho_{ij}$, the mutual information is given by the well known formula \cite{cover1999elements}:
+\begin{equation}
+\mathcal{B}_{ij}(x) = I(X_i ; X_j) = -\frac{1}{2} \ln(1 - \rho_{ij}^2)
+\end{equation}
+where $\rho_{ij}$ is derived from the covariance matrix $\Sigma$ as $\rho_{ij} = \Sigma_{ij} / \sqrt{\Sigma_{ii} \Sigma_{jj}}$. To avoid double counting the self information (entropy), we set $\mathcal{B}_{ii}(x) = 0$.
+
+This choice satisfies the requirements of Definition 8: symmetry follows from $\rho_{ij} = \rho_{ji}$, and non negativity follows from the fact that mutual information is always non negative. The binding tensor is zero if and only if $\rho_{ij} = 0$, meaning the two variables are independent. As $|\rho_{ij}| \to 1$, the binding tensor diverges, reflecting perfect correlation.
+
+\subsection{Scale Filtration}
+The scale filtration $\{\mathcal{F}_s\}$ is defined by progressive marginalization. At the finest scale $s_{\min}$, the observer has access to all $6N$ degrees of freedom. At a coarser scale $s$, the observer only has access to a subset of $k(s)$ degrees of freedom, where $k(s)$ is a decreasing function of $s$. The sub $\sigma$-algebra $\mathcal{F}_s$ is generated by the projection onto these $k(s)$ variables.
+
+\subsection{Scale Conditioned Information}
+The scale conditioned information $\mathcal{I}_s[x]$ is the sum of the pairwise mutual information over the $k(s)$ observable degrees of freedom:
+\begin{equation}
+\mathcal{I}_s[x] = \sum_{i,j \in \text{obs}(s)} \mathcal{B}_{ij}(x)
+\end{equation}
+
+The total integrated relational information is then:
+\begin{equation}
+\mathcal{I}[x] = \sum_{i \neq j} \mathcal{B}_{ij}(x) = -\frac{1}{2} \sum_{i \neq j} \ln(1 - \rho_{ij}^2)
+\end{equation}
+
+The coherence at scale $s$ is the ratio:
+\begin{equation}
+\mathcal{C}_s^{(\mathcal{O})}[x] = \frac{\sum_{i,j \in \text{obs}(s)} \mathcal{B}_{ij}(x)}{\sum_{i \neq j} \mathcal{B}_{ij}(x)}
+\end{equation}
+
+As variables are marginalized out (i.e., as $s$ increases and $k(s)$ decreases), the numerator decreases while the denominator remains fixed. The coherence therefore decreases monotonically with scale, consistent with the general framework.
+
+\subsection{Bounded Scale Distortion}
+Consider a transformation $T$ that corresponds to coarse graining the system. In the renormalization group framework \cite{wilson1975renormalization}, such transformations systematically integrate out short distance degrees of freedom while preserving the long distance structure. If $T$ preserves the correlation structure among a subset of variables such that the mutual information within that subset is bounded below by a fraction $\beta$ of its original value, then $T$ satisfies the bounded scale distortion condition.
+
+Concretely, suppose the system has $N = 6$ degrees of freedom with uniform pairwise correlation $\rho$. The total integrated information is $\mathcal{I}[x] = -15 \ln(1 - \rho^2)$. After marginalizing to $k = 4$ variables, the scale conditioned information becomes $\mathcal{I}_s[x] = -6 \ln(1 - \rho^2)$, giving a coherence of $\mathcal{C}_s = 6/15 = 0.4$. After further marginalization to $k = 2$ variables, the coherence drops to $\mathcal{C}_s = 1/15 \approx 0.067$. The key observation is that for any $\rho > 0$, the coherence remains strictly positive at every scale where at least two variables are observed.
+
+For scales where $\mathcal{I}_s[x] = 0$ (e.g., when the variables are completely independent), the bounded scale distortion condition holds vacuously.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/fig1_gaussian_coherence.pdf}
-\caption{Coherence $\mathcal{C}^{(\mathcal{O})}_s[\mathbf{X}]$ as a function of scale threshold $s$ for the jointly Gaussian system $(X_1, X_2, X_3)$ with equicorrelation $\rho$.  Each curve is a step function dropping from $1$ to $0$ at $s = m(\rho) = -\tfrac{1}{2}\ln(1-\rho^2)$, illustrating that finer scales (smaller $s$) always detect coherence even when coarse scales declare destruction.}
-\label{fig:gauss_coherence}
+\includegraphics[width=0.8\textwidth]{figures/fig1_gaussian_coherence.png}
+\caption{Gaussian coherence under marginalization. The figure demonstrates how coherence drops as the scale becomes coarser (fewer variables observed), but remains bounded away from zero for highly correlated systems, satisfying the bounded scale distortion condition.}
+\label{fig:gaussian}
 \end{figure}
 
-%% ============================================================
-%% 8. EXAMPLE 2: NEUROSCIENCE
-%% ============================================================
-\section{Example 2: Neuroscience}\label{sec:example2}
+\section{Example 2: Neural Systems and Anesthesia}
 
-We instantiate the framework using neural time series data, modeling the effect of general anesthesia on cortical network coupling.
+We now instantiate the framework in a neuroscience setting, modeling the suppression of cortical coupling under general anesthesia. This example demonstrates how the framework handles temporal filtration and directed information flow.
 
-\begin{example}[Anesthetic Suppression of Neural Coupling]\label{ex:neuro}
-Let $\mathbf{X}(t) = (X_1(t), \ldots, X_n(t))$ be a multivariate neural time series representing $n$ cortical recording channels.
+\subsection{System Setup}
+Let $\mathcal{R}$ be the underlying neural tissue. The observer $\mathcal{O}$ records electrophysiological signals (e.g., EEG or ECoG) from $N$ distinct cortical sites. The state space $\Sigma_{\mathcal{O}}$ consists of multivariate time series $X(t) \in \mathbb{R}^N$. We explicitly assume the time series are stationary and ergodic over the observation window.
 
-\textbf{Observer and decomposition.}  The observer $\Obs$ has index space $E = \{1, \ldots, n\}$ with counting measure.  The interface map depends on the recording modality: for EEG, $\IO$ captures high-frequency temporal dynamics; for fMRI, $\IO$ captures slow hemodynamic fluctuations.
+\subsection{Binding Tensor}
+We define the binding tensor using transfer entropy (TE), which measures the directed flow of information from site $i$ to site $j$ \cite{schreiber2000measuring}. Transfer entropy from process $X_i$ to process $X_j$ at lag $\ell$ is defined as:
+\begin{equation}
+TE_{i \to j}(\ell) = \sum p(x_j^{t+1}, x_j^{(k)}, x_i^{(\ell)}) \log \frac{p(x_j^{t+1} | x_j^{(k)}, x_i^{(\ell)})}{p(x_j^{t+1} | x_j^{(k)})}
+\end{equation}
+where $x_j^{(k)}$ denotes the past $k$ values of process $j$ and $x_i^{(\ell)}$ denotes the past $\ell$ values of process $i$.
 
-\textbf{Binding tensor.}  The binding tensor is symmetrized transfer entropy \citep{schreiber2000measuring} across temporal lags $\tau$:
-\[
-    \Bij(\mathbf{X}) = \frac{1}{2}\left[\mathrm{TE}_{\tau}(X_i \to X_j) + \mathrm{TE}_{\tau}(X_j \to X_i)\right],
-\]
-where $\mathrm{TE}_{\tau}(X_i \to X_j) = H(X_j(t+\tau) \mid X_j^{(L)}(t)) - H(X_j(t+\tau) \mid X_j^{(L)}(t), X_i^{(K)}(t))$ with $X_j^{(L)}(t) = (X_j(t), X_j(t-1), \ldots, X_j(t-L+1))$.
+To satisfy the symmetry requirement of Definition 8, we use the symmetrized transfer entropy:
+\begin{equation}
+\mathcal{B}_{ij}(x) = \frac{1}{2} \left( TE_{i \to j} + TE_{j \to i} \right)
+\end{equation}
 
-\textbf{Scale filtration.}  The scale parameter $s$ is temporal resolution (lag threshold).  At scale $s$, only transfer entropy contributions from lags $\tau \leq 1/s$ are included:
-\[
-    \Iinfo_s[\mathbf{X}] = \sum_{i < j} \sum_{\tau \leq 1/s} \Bij^{(\tau)}(\mathbf{X}).
-\]
-Coarse scales (large $s$) capture only fast, short-lag coupling.  Fine scales (small $s$) capture both fast and slow, long-lag coupling.
+This symmetrization ensures that the binding tensor satisfies $\mathcal{B}_{ij} = \mathcal{B}_{ji}$ while preserving the total magnitude of directed information flow between each pair of sites.
 
-\textbf{Transformation.}  General anesthesia is modeled as a transformation $T_\gamma$ that suppresses long-lag coupling by a factor $\gamma \in (0, 1)$:
-\[
-    \mathcal{B}^{(\tau)}_{ij}(T_\gamma(\mathbf{X})) = \begin{cases} \Bij^{(\tau)}(\mathbf{X}) & \text{if } \tau \leq \tau_{\text{fast}}, \\ \gamma \cdot \Bij^{(\tau)}(\mathbf{X}) & \text{if } \tau > \tau_{\text{fast}}, \end{cases}
-\]
-where $\tau_{\text{fast}}$ is the boundary between fast local coupling and slow long-range coupling, and $\gamma$ is the suppression parameter (reserved notation per \Cref{not:symbols}).
+\subsection{Scale Filtration}
+The scale filtration $\{\mathcal{F}_s\}$ is defined by temporal lag inclusion. At the finest scale $s_{\min}$, the observer computes transfer entropy using all available lags from $\ell = 1$ to $\ell = L_{\max}$, capturing both fast and slow coupling. At a coarser scale $s$, only lags up to $\ell(s)$ are included, where $\ell(s)$ is a decreasing function of $s$. This means that at coarser scales, only the slow, long range temporal correlations contribute to the binding tensor.
 
-\textbf{Coherence analysis.}  An fMRI observer (coarse temporal scale, large $s$) primarily detects slow, long-lag coupling.  Under anesthesia, this coupling is suppressed by $\gamma$, so:
-\[
-    \mathcal{C}^{(\text{fMRI})}_{s_{\text{fMRI}}}[T_\gamma(\mathbf{X})] \approx \gamma \cdot \mathcal{C}^{(\text{fMRI})}_{s_{\text{fMRI}}}[\mathbf{X}].
-\]
-For small $\gamma$, this falls below $\epsilon_{\text{fMRI}}$: apparent destruction.
+This temporal lag filtration is the natural analogue of the spatial marginalization used in Example 1. Just as marginalizing out spatial variables reduces the observable correlations, restricting the lag window removes the contribution of fast temporal coupling.
 
-An EEG observer (fine temporal scale, small $s$) detects both fast and slow coupling.  The fast coupling is preserved:
-\[
-    \mathcal{C}^{(\text{EEG})}_{s_{\text{EEG}}}[T_\gamma(\mathbf{X})] \geq \frac{\Iinfo_{\text{fast}}[\mathbf{X}]}{\Iinfo[T_\gamma(\mathbf{X})]} > \epsilon_{\text{EEG}}.
-\]
-The EEG observer declares no destruction.
+\subsection{Anesthetic Suppression}
+General anesthesia typically suppresses long range, low frequency cortical communication while preserving local, high frequency activity \cite{mashour2014top}. We model this transformation $T$ by introducing a neural suppression parameter $\gamma \in (0, 1]$. Under anesthesia, the binding tensor at coarse scales (long lags) is attenuated by $\gamma$, while the binding tensor at fine scales (short lags) remains relatively unchanged.
 
-\textbf{Verification of theorems.}  The transformation $T_\gamma$ is information-non-annihilating: $\Iinfo[T_\gamma(\mathbf{X})] \geq \gamma \cdot \Iinfo[\mathbf{X}]$ with $\alpha = \gamma > 0$.  By \Cref{thm:reldestr}, apparent destruction at the fMRI scale does not imply absolute destruction.  By \Cref{thm:ontology}, the two observers reach different conclusions about the same transformation, confirming the interface-dependence of destruction.
-\end{example}
+Formally, we define the post anesthesia binding tensor as:
+\begin{equation}
+\mathcal{B}_{ij}^{\text{post}}(\ell) = \begin{cases} \mathcal{B}_{ij}^{\text{pre}}(\ell) & \text{if } \ell \leq \ell_0 \\ \gamma \cdot \mathcal{B}_{ij}^{\text{pre}}(\ell) & \text{if } \ell > \ell_0 \end{cases}
+\end{equation}
+where $\ell_0$ is the boundary between fast and slow coupling. This models the empirical observation that anesthesia selectively disrupts long range cortical communication while leaving local processing relatively intact.
+
+\subsection{Bounded Scale Distortion}
+In this construction, the suppression factor $\gamma$ directly satisfies the bounded scale distortion condition with $\beta = \gamma$. To see this, note that at the fine scale $s^* = s_{\min}$ (where all lags including short ones are included), the scale conditioned information satisfies:
+\begin{equation}
+\mathcal{I}_{s^*}[T(x)] \geq \gamma \cdot \mathcal{I}_{s^*}[x]
+\end{equation}
+because the short lag contributions are preserved exactly and the long lag contributions are attenuated by at most $\gamma$.
+
+Even though the macroscopic coherence (measured at coarse scales where only long lags contribute) drops below the observer threshold $\epsilon_{\mathcal{O}}$, the structure persists at finer scales. The network is not absolutely destroyed; it is merely rendered unrepresentable at the macroscopic scale. This is precisely the distinction between apparent destruction and absolute destruction that the framework is designed to capture.
+
+The practical implication is significant: a clinical observer monitoring only slow cortical oscillations would conclude that the neural network has lost its coherent structure under anesthesia. But the framework predicts that the structure persists at finer temporal scales, consistent with the empirical observation that local neural processing continues even during deep anesthesia.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.85\textwidth]{figures/fig2_neural_suppression.pdf}
-\caption{Coherence under anesthetic suppression of long-lag cortical coupling.  The suppression parameter $\gamma$ ranges from $1.0$ (awake) to $0.01$ (deep anesthesia).  At coarse temporal scales (large $s$), the fMRI observer sees only slow coupling, which is heavily suppressed.  At fine temporal scales (small $s$), the EEG observer detects preserved fast coupling, declaring no destruction.  The detection threshold $\epsilon_{\mathcal{O}}$ separates apparent destruction from persistence.}
-\label{fig:neural_suppression}
+\includegraphics[width=0.8\textwidth]{figures/fig2_neural_suppression.png}
+\caption{Neural suppression under anesthesia. The figure illustrates how long lag coupling is suppressed while short lag coupling is preserved, demonstrating that the structure is not annihilated but merely shifted below the macroscopic representability threshold.}
+\label{fig:neural}
 \end{figure}
 
-%% ============================================================
-%% 9. RELATIONSHIP TO EXISTING FRAMEWORKS
-%% ============================================================
-\section{Relationship to Existing Frameworks}\label{sec:comparison}
+\section{Relationship to Existing Frameworks}
 
-We position the framework against three major existing theories.  The comparison is structural, not adversarial: each existing framework captures something real, and this framework identifies the additional assumptions each one makes.
+To clarify the contribution of this framework, we map it structurally against three prominent existing theories: Integrated Information Theory, the Free Energy Principle, and decoherence based approaches. The key distinction is that these frameworks tend to treat coherence, information, or integration as intrinsic properties of systems, whereas this framework treats them as properties of an observer scale representation triple.
 
 \subsection{Integrated Information Theory (IIT)}
+IIT defines a scalar quantity $\Phi$ that measures the integrated information of a system \cite{tononi2016integrated}. It assumes a fixed system boundary and a fixed partition of elements. In our framework, IIT corresponds to a special case where the scale filtration $\mathcal{F}_s$ is held constant, and the interface map $I_{\mathcal{O}}$ is taken to be a faithful embedding of $\mathcal{R}$ into $\Sigma_{\mathcal{O}}$. By relaxing these constraints, our framework allows integration to vary dynamically as the observer scale or interface changes.
 
-IIT \citep{tononi2016integrated} defines a scalar quantity $\Phi$ measuring the integrated information of a system.  The computation of $\Phi$ requires:
-\begin{enumerate}[nosep,label=(\roman*)]
-    \item a fixed system boundary (which elements are ``in'' the system),
-    \item a fixed partition structure (how to decompose the system), and
-    \item observer-independence (the value of $\Phi$ is treated as an intrinsic property).
-\end{enumerate}
-
-In the present framework, all three of these are observer-dependent.  The system boundary is determined by the interface map $\IO$.  The partition structure is determined by the component decomposition (\Cref{def:decomp}).  The coherence value depends on the observer's scale and detection threshold.  IIT is recovered as a special case: fix a single observer, fix a single scale, and define $\Phi$ as $\Iinfo[x]$ computed with respect to that fixed decomposition.  The present framework generalizes IIT by allowing the boundary, partition, and scale to vary with the observer.
+The structural difference can be stated precisely. IIT treats $\Phi$ as a property of the system itself. In our framework, the analogous quantity $\mathcal{I}[x]$ is a property of the observer system interaction. Two observers with different interface maps will in general compute different values of $\mathcal{I}[x]$ for the same underlying state $r \in \mathcal{R}$. IIT does not account for this observer dependence because it does not parameterize the observer.
 
 \subsection{The Free Energy Principle (FEP)}
+The FEP posits that biological systems maintain their structure by minimizing variational free energy, which requires a Markov blanket to separate the agent from the environment \cite{friston2010free}. The FEP variational free energy can be viewed as a special case of our scale conditioned information $\mathcal{I}_s[x]$ evaluated at a single, fixed scale. Our framework does not require the a priori existence of a Markov blanket; rather, the boundary between observer and environment is dynamically generated by the interface map $I_{\mathcal{O}}$.
 
-The FEP \citep{friston2010free} models biological systems as Bayesian agents that minimize variational free energy (a bound on surprise).  The FEP presupposes:
-\begin{enumerate}[nosep,label=(\roman*)]
-    \item an inferential architecture (the agent has a generative model),
-    \item a Markov blanket (a statistical boundary separating internal and external states), and
-    \item a specific optimization objective (free energy minimization).
-\end{enumerate}
+\subsection{Decoherence Theory}
+In quantum mechanics, decoherence describes the loss of coherence when a system interacts with its environment \cite{zurek2003decoherence}. Let $\mathcal{H}_S \otimes \mathcal{H}_E$ denote the joint Hilbert space of the system and environment. Decoherence is a physical mechanism specific to quantum substrates. Our framework is substrate neutral. What decoherence theory describes as the irreversible tracing out of environmental degrees of freedom, our framework describes as a scale filtration where the fine grained correlations are no longer representable by the macroscopic observer.
 
-The present framework derives representability and coherence prior to any inference.  An FEP agent is a special case of an observer $\Obs$ whose admissible transformation set $\TO$ includes Bayesian updates and whose interface map $\IO$ is structured by a Markov blanket.  The present framework does not require the observer to be an inferential agent; it only requires that the observer have a sensory structure, a partition, a compression system, and a transformation set.
+\subsection{Summary of Structural Differences}
 
-\subsection{Decoherence-Based Approaches}
+The following table summarizes the key structural differences between the present framework and the three comparison theories.
 
-Decoherence \citep{zurek2003decoherence} describes the loss of observable quantum coherence due to entanglement with the environment.  In the language of this framework, decoherence is a specific instance of apparent destruction: the quantum coherence (a form of relational information between subsystem components) becomes unrepresentable at the scale of the macroscopic observer, but the information is not annihilated---it is redistributed into the joint system-environment state.
-
-The present framework generalizes decoherence by:
-\begin{enumerate}[nosep,label=(\roman*)]
-    \item not restricting to quantum systems,
-    \item not requiring a specific physical mechanism (entanglement) for the loss of coherence, and
-    \item defining the loss relative to an observer interface rather than relative to a preferred basis.
-\end{enumerate}
-
-\begin{table}[H]
+\begin{table}[ht]
 \centering
-\caption{Structural comparison of frameworks.}
-\label{tab:comparison}
-\begin{tabular}{@{}lcccc@{}}
-\toprule
-\textbf{Property} & \textbf{This Framework} & \textbf{IIT} & \textbf{FEP} & \textbf{Decoherence} \\
-\midrule
-Observer-dependent coherence & Yes & No & Partial & No \\
-Scale-relative destruction & Yes & No & No & Partial \\
-Fixed system boundary & No & Yes & Yes & Yes \\
-Requires inference architecture & No & No & Yes & No \\
-Domain restriction & None & Causal & Biological & Quantum \\
-\bottomrule
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Property} & \textbf{This framework} & \textbf{IIT} & \textbf{FEP} & \textbf{Decoherence} \\
+\hline
+Observer parameterized & Yes & No & Partial & No \\
+\hline
+Scale relative coherence & Yes & No & No & Partial \\
+\hline
+Substrate neutral & Yes & Yes & Yes & No \\
+\hline
+No fixed boundary & Yes & No & No & No \\
+\hline
+No inference architecture & Yes & Yes & No & Yes \\
+\hline
+Domain generality & High & Medium & Medium & Low \\
+\hline
 \end{tabular}
+\caption{Structural comparison of the present framework with IIT, FEP, and decoherence theory.}
+\label{tab:comparison}
 \end{table}
 
-%% ============================================================
-%% 10. COMPUTABILITY AND TRACTABLE APPROXIMATION
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.75\textwidth]{figures/fig4_framework_comparison.pdf}
-\caption{Structural comparison of frameworks across five key properties.  This framework achieves full coverage on all five axes: observer-dependent coherence, scale-relative destruction, no fixed system boundary, no inference architecture, and domain generality.  IIT, FEP, and decoherence-based approaches each satisfy a subset of these properties.}
-\label{fig:framework_comparison}
+\includegraphics[width=0.8\textwidth]{figures/fig4_framework_comparison.png}
+\caption{Framework comparison radar chart. This visualizes the structural differences between the present framework, IIT, FEP, and Decoherence across key dimensions such as observer dependence, scale relativity, and substrate neutrality.}
+\label{fig:frameworks}
 \end{figure}
 
-%% ============================================================
-\section{Computability and Tractable Approximation}\label{sec:computability}
+\section{Computability and Tractable Approximation}
 
-The exact computation of $\Iinfo[x]$ is generally intractable for large systems.  For a system with $|E| = n$ components, the binding tensor has $O(n^2)$ entries, and each entry may require estimation of conditional mutual information or transfer entropy, both of which are computationally expensive in high dimensions \citep{paninski2003estimation}.
+The integrated relational information $\mathcal{I}[x]$ is generally computationally intractable or statistically difficult to estimate for large systems \cite{paninski2003estimation}. The binding tensor $\mathcal{B}_{ij}(x)$ has $|E|^2$ entries, and estimating each entry from finite data introduces statistical error that compounds across the integration. However, the framework identifies the exact quantity to be approximated and the structural properties that a good approximation must preserve.
 
-The framework does not claim that $\Iinfo[x]$ is easy to compute.  It claims that $\Iinfo[x]$ is the right quantity to approximate, and it identifies the structural properties that any good approximation must preserve:
-\begin{enumerate}[nosep,label=(\roman*)]
-    \item non-negativity of the binding tensor,
-    \item monotonicity of the coherence functional under coarsening,
-    \item the information-non-annihilation inequality under admissible transformations, and
-    \item the scale-existence guarantee (\Cref{thm:scaleexist}).
-\end{enumerate}
+\subsection{Sparse Graph Truncation}
+For systems where the binding tensor $\mathcal{B}_{ij}$ is sparse (i.e., most pairs of components have negligible relational structure), we can truncate the integration to the non zero or above threshold components. If the binding tensor has at most $m$ non zero entries per row, the computational cost reduces from $O(|E|^2)$ to $O(m \cdot |E|)$. This approximation provides a lower bound on the true information:
+\begin{equation}
+\mathcal{I}_{\text{sparse}}[x] = \int_{E \times E} \mathcal{B}_{ij}(x) \cdot \mathbf{1}_{\{\mathcal{B}_{ij}(x) > \tau\}} \, d\nu(i,j) \leq \mathcal{I}[x]
+\end{equation}
+where $\tau$ is a sparsity threshold.
 
-Tractable approximation strategies include:
+\subsection{Low Rank Approximation}
+Let $\mathcal{I}^{(k)}$ denote the approximation induced by truncation to $k$ principal components of the binding tensor. If the binding tensor has a rapidly decaying spectrum, the first $k$ components capture the dominant relational structure. This provides a tractable lower bound on the true information. The notation $\mathcal{I}^{(k)}$ is local to this section and should not be confused with the scale conditioned information $\mathcal{I}_s[x]$.
 
-\textbf{Sparse graph truncation.}  For network models where most pairs $(i,j)$ have negligible binding, retain only the $k$ largest entries of $\Bij$ and set the rest to zero.  This preserves the dominant relational structure while reducing computation from $O(n^2)$ to $O(k)$.
+\subsection{Windowed Transfer Entropy}
+For time series data (as in Example 2), windowed transfer entropy provides a localized estimate of the binding tensor \cite{schreiber2000measuring}. The window length determines the temporal resolution of the estimate. For bias corrected estimators, windowed transfer entropy converges to the true value under standard regularity conditions; without correction, estimates may be biased \cite{paninski2003estimation}.
 
-\textbf{Low-rank covariance approximation.}  For high-dimensional continuous systems with approximately Gaussian statistics, approximate the covariance matrix by its leading $r$ eigenvectors.  The mutual information can then be computed in closed form from the truncated spectrum.
+\subsection{Structural Properties of Approximations}
+A good approximation must preserve three structural properties: (P1) it must be a lower bound on the true information, ensuring that any coherence detected in the approximation is real; (P2) it must respect the scale filtration, meaning the approximation at coarser scales is less than or equal to the approximation at finer scales; (P3) it must preserve the monotonicity of the coherence functional. Both sparse truncation and low rank approximation satisfy these properties.
 
-\textbf{Windowed transfer entropy estimation.}  For non-stationary time series, estimate transfer entropy within sliding windows of length $W$, producing a time-varying binding tensor $\Bij^{(t)}(\mathbf{X})$.  This converts the static framework into a dynamic one at the cost of temporal resolution.
+These approximations ensure that the framework can be applied to empirical data, such as EEG recordings or simulated physical systems, without requiring infinite computational resources. The framework does not claim to be easy to compute; it claims to identify the correct quantity and the structural constraints that any tractable approximation must satisfy.
 
-\textbf{Filtration discretization.}  Replace the continuous scale parameter $\mathcal{S}$ with a finite set $\{s_1, \ldots, s_m\}$.  The coherence functional is then evaluated at $m$ discrete scales, reducing the filtration to a finite tower of $\sigma$-algebras.
+\section{Discussion}
 
-%% ============================================================
-%% 11. DISCUSSION
-%% ============================================================
-\section{Discussion}\label{sec:discussion}
+The framework presented here shifts the locus of mathematical and informational structure from the absolute reality to the observer interface. By doing so, it resolves the paradox of apparent destruction. When a system undergoes a radical transformation, its structure is not annihilated; it is redistributed into a form that is no longer coherent at the observer original scale.
 
-The framework demonstrates that what we perceive as the end of a system is often a transition into a higher-entropy, differently scaled encoding of the prior organized state.  The key insight is not that ``nothing is ever really destroyed''---that would be a vacuous conservation claim.  The insight is that the boundary between destruction and persistence is drawn by the observer's interface, not by reality itself.  Different observers, operating at different scales and with different representational capacities, will draw that boundary in different places.
+This reframing has several concrete consequences. First, it provides a principled way to distinguish between what is lost and what is merely hidden. In the statistical mechanics example, marginalizing out degrees of freedom reduces the observable coherence, but the underlying correlations persist in the full state space. In the neuroscience example, anesthesia suppresses macroscopic cortical coupling, but the local, high frequency structure remains intact. In both cases, the framework correctly identifies the transformation as apparent destruction rather than absolute annihilation.
 
-This has concrete implications.  In neuroscience, the question of whether consciousness is ``lost'' under anesthesia depends on the temporal scale and modality of observation.  In physics, the question of whether information is ``destroyed'' in a black hole depends on the observer's access to the Hawking radiation spectrum.  In each case, the framework provides a formal language for stating what is lost, at what scale, for which observer, and what persists elsewhere.
+Second, the framework provides a formal language for comparing different theoretical approaches. By mapping IIT, the Free Energy Principle, and decoherence theory into the observer interface framework, we can identify exactly where each theory makes implicit assumptions about the observer, the scale, or the system boundary. IIT assumes a fixed partition and no observer. The FEP assumes a Markov blanket and a single scale. Decoherence theory assumes a quantum substrate. Our framework makes none of these assumptions, which is both its strength and its limitation: it is more general, but it requires more structure to be specified before it can be applied to a concrete system.
 
-The framework also provides a non-Platonic account of mathematical structure.  Rather than treating mathematics as a pre-existing realm that observers discover, the framework treats mathematical systems as emergent structures generated by the interaction of an observer with reality.  Different observers generate different mathematical systems, and the overlap between these systems constitutes what we call ``universal'' mathematics.
+Third, the proof of emergent universality (Theorem 5) demonstrates that we do not need to posit a Platonic realm of mathematical objects to explain why different observers agree on mathematical truths. The agreement is a necessary consequence of overlapping interfaces interacting with a shared reality. This is not a philosophical argument; it is a mathematical theorem with explicit hypotheses (finite family, pairwise non singularity, compatible filtrations) and a constructive proof.
 
-%% ============================================================
-%% 12. LIMITATIONS AND FUTURE WORK
-%% ============================================================
-\section{Limitations and Future Work}\label{sec:limitations}
+Finally, the dynamics of observer evolution (Section 6) open a new direction for formal epistemology. Learning, in this framework, is not the accumulation of facts but the refinement of the observer interface. When an observer refines its scale filtration, it gains access to structure that was previously below its representability threshold. This provides a formal model of scientific progress: the history of science can be understood as the progressive refinement of observer interfaces, each refinement expanding the formal system and bringing previously hidden structure into representability.
 
-The current framework has several limitations that define directions for future work.
+\section{Limitations and Future Work}
 
-First, the framework assumes the existence of a measurable decomposition of the system state into components (\Cref{def:decomp}).  This decomposition is observer-dependent, but the framework does not yet provide a mechanism for deriving it from the interface map alone.  A natural extension would be to define the decomposition as the partition that maximizes $\Iinfo[x]$ subject to constraints on the index space.
+The current framework has several limitations that should be stated explicitly.
 
-Second, the binding tensor $\Bij$ must be specified for each instantiation.  The framework identifies the structural properties that $\Bij$ must satisfy (non-negativity, measurability, vanishing under conditional independence) but does not select a canonical choice.  Different choices of $\Bij$ (mutual information, transfer entropy, Granger causality) may yield different coherence values for the same system.
+First, the proof of emergent universality (Theorem 5) is restricted to finite families of observers. Extending this to infinite families requires additional topological or measure theoretic compactness conditions on the space of observer interfaces. Without such conditions, the intersection of infinitely many formal systems could be empty even if every finite sub intersection is non empty. This is a genuine mathematical gap, not merely a technical inconvenience.
 
-Third, \Cref{thm:monotone} is restricted to pure scale refinement with shared index space, measure, and binding tensor.  The general case, where observers may also evolve their compression maps, binding tensors, or sensory structures, requires a topology on the space of observer tuples and is left as future work.
+Second, the dynamics of observer evolution (Section 6) were analyzed primarily under pure scale refinement, with the binding tensor, index space, and measure held fixed. A full theory of observer dynamics must account for simultaneous changes in the sensor set, partition map, compression map, and transformation set. In particular, sensor evolution (where the observer gains access to entirely new channels of information) is qualitatively different from scale refinement and may not preserve the monotonicity properties established in Theorem 7.
 
-Fourth, the computability section identifies approximation strategies but does not provide convergence guarantees for specific estimators.  Establishing rates of convergence for transfer entropy estimators in the context of this framework is an open problem.
+Third, the examples presented here are idealized. The Gaussian statistical mechanics example assumes exact knowledge of the covariance matrix, and the neural systems example assumes stationarity and ergodicity. Real empirical applications will require robust estimation procedures for the binding tensor under non stationary, finite sample conditions.
 
-Fifth, the framework has not yet been applied to empirical data.  The neuroscience example (\Cref{sec:example2}) is a structural instantiation, not an empirical test.  Applying the framework to real EEG or MEG data under anesthesia, using publicly available datasets such as those on OpenNeuro, is a priority for future work.
+Fourth, the framework does not currently address the question of observer creation or destruction. We define observer evolution as a map between observer tuples, but we do not formalize the conditions under which a new observer comes into existence or an existing observer ceases to function.
 
-%% ============================================================
-%% 13. CONCLUSION
-%% ============================================================
-\section{Conclusion}\label{sec:conclusion}
+Future empirical work will focus on applying the tractable approximations (Section 10) to high density neural recordings (such as the publicly available datasets from the Human Connectome Project or the Allen Brain Observatory) to track the scale relative persistence of cognitive structures during states of unconsciousness. Future theoretical work will focus on extending the universality theorem to infinite families and developing a full dynamics of observer creation and destruction.
 
-We have presented a formal framework in which mathematics is an emergent interface grammar and destruction is a scale-relative loss of coherent representation.  The framework is built from a chain of definitions: underlying reality, observer interface, component decomposition, binding tensor, integrated relational information, scale filtration, coherence functional, representability map, and the distinction between apparent and absolute destruction.  Each definition depends only on those that precede it, and the theorems follow from the definitions and explicitly stated assumptions.
+\section{Conclusion}
 
-The framework unifies the roles of observer, scale, and representation into a single structure.  It provides a rigorous language for analyzing the persistence of informational structure across radical transformations, and it positions existing theories---IIT, FEP, and decoherence---as special cases corresponding to specific choices of observer, boundary, and scale.
+We have constructed a formal architecture in which coherence, representability, and mathematical systems are emergent properties of an observer interface interaction. The dependency chain from the underlying reality $\mathcal{R}$ through the observer interface $I_{\mathcal{O}}$, binding tensor $\mathcal{B}_{ij}$, scale conditioned information $\mathcal{I}_s[x]$, coherence functional $\mathcal{C}_s^{(\mathcal{O})}[x]$, distinction set $\mathcal{D}_{\mathcal{O}}$, and formal system $\mathfrak{M}_{\mathcal{O}}$ provides a complete, self contained architecture for analyzing the relationship between observer, scale, and structure.
 
-The central result is that apparent destruction at a given scale, for a given observer, does not imply absolute annihilation of informational structure.  Structure persists; it is the observer's capacity to represent it that fails.
+By explicitly parameterizing the observer and the scale of observation, we have shown that apparent destruction is a loss of representability, not absolute annihilation. Theorem 1 establishes that structure persists at some scale under non annihilating transformations. Theorem 2 (the strengthened version) provides a quantitative lower bound on the coherence at the persisting scale. Theorem 3 formalizes the observer relativity of destruction. Theorem 4 establishes the interface dependent ontology.
 
-%% ============================================================
-%% REFERENCES
-%% ============================================================
-\bibliographystyle{plainnat}
-\bibliography{references}
+The cross observer results (Theorems 5 and 6) resolve the problem of mathematical universality without invoking Platonism. The shared formal system $\mathfrak{M}^*$ is not a pre existing mathematical realm; it is the constructive intersection of observer generated formal systems over a shared reality. The dynamics results (Theorems 7 and 8) show that observer evolution through scale refinement is monotonic and convergent.
 
-%% ============================================================
-%% APPENDICES
-%% ============================================================
+This framework provides a rigorous, substrate neutral language for analyzing the persistence of complex systems across radical state changes. It grounds the universality of mathematics in the shared structure of observer interfaces rather than in unobservable Platonic ideals. And it opens a new formal direction for understanding how observers, through the refinement of their interfaces, progressively expand the domain of representable structure.
+
 \appendix
 
-\section{Proof Details for Theorem~\ref{thm:monotone}}\label{app:monotone}
+\section{Proof Details and Technical Notes}
 
-We provide additional detail for the proof of \Cref{thm:monotone}.
+\subsection{On the Measurability of the Coherence Functional}
+The coherence functional $\mathcal{C}_s^{(\mathcal{O})}[x] = \mathcal{I}_s[x] / \mathcal{I}[x]$ is well defined whenever $\mathcal{I}[x] > 0$. The measurability of $\mathcal{C}_s^{(\mathcal{O})}$ as a function of $x$ follows from the measurability of the binding tensor $\mathcal{B}_{ij}(x)$ (assumed in Definition 8), the measurability of conditional expectation (a standard result in measure theory), and the measurability of the ratio of two measurable functions on the set where the denominator is non zero.
 
-\textit{Part (i), detailed argument.}  Let $R_k(t) := \{r \in \R : \Psi_{\Obs_k(t)}(I_{\Obs_k(t)}(r)) \neq \varnothing\}$ for $k = 1, 2$.  Under pure scale refinement with preserved binding tensor, \Cref{thm:coherencerefine} implies that coherence is non-decreasing at every scale.  Since a state $r$ is representable when coherence exceeds $\epsO$ at some scale, and coherence can only increase under refinement, we have $R_k(t) \subseteq R_k(t+1)$ for all $t$ and $k$.
+\subsection{On the Least Fixed Point Construction}
+The formal system $\mathfrak{M}_{\mathcal{O}}$ is defined as the least fixed point of a set operation (Definition 15). The existence of this least fixed point is guaranteed by the Knaster Tarski theorem, which states that every monotone function on a complete lattice has a least fixed point. The relevant lattice here is the power set of $\Sigma_{\mathcal{O}}$, ordered by inclusion. The set operation $X \mapsto \mathcal{V}_{\mathcal{O}} \cup \{T(x) : x \in X, T \in \mathcal{T}_{\mathcal{O}}\}$ is monotone because adding elements to $X$ can only increase the set of states reachable by admissible transformations.
 
-The numerator of $\Omega$ is $\mu_{\R}(R_1(t) \cap R_2(t))$, which is non-decreasing because both $R_1(t)$ and $R_2(t)$ are non-decreasing.  The denominator is $\mu_{\R}(R_1(t) \cup R_2(t))$, which is also non-decreasing.  To show the ratio is non-decreasing, note that:
-\[
-    \frac{|A \cap B|}{|A \cup B|} \leq \frac{|A' \cap B'|}{|A' \cup B'|}
-\]
-whenever $A \subseteq A'$, $B \subseteq B'$, and the growth of the intersection is at least as fast as the growth of the symmetric difference.  Under the shared binding tensor and measure assumptions, both observers are refining toward the same underlying structure, so the intersection grows at least as fast as either individual set.
+\subsection{On the Tower Property in Lemma 1}
+The proof of Lemma 1 relies on the tower property of conditional expectation: if $\mathcal{G}_1 \subseteq \mathcal{G}_2$ are sub $\sigma$-algebras, then $\mathbb{E}[\mathbb{E}[X | \mathcal{G}_2] | \mathcal{G}_1] = \mathbb{E}[X | \mathcal{G}_1]$. This is a standard result that holds for any integrable random variable $X$. In our context, $X = \mathcal{B}_{ij}(x)$, $\mathcal{G}_1 = \mathcal{F}_{s_2}$ (coarser), and $\mathcal{G}_2 = \mathcal{F}_{s_1}$ (finer). The decomposition follows by writing $\mathbb{E}[\mathcal{B}_{ij} | \mathcal{F}_{s_1}] = \mathbb{E}[\mathcal{B}_{ij} | \mathcal{F}_{s_2}] + (\mathbb{E}[\mathcal{B}_{ij} | \mathcal{F}_{s_1}] - \mathbb{E}[\mathcal{B}_{ij} | \mathcal{F}_{s_2}])$ and integrating over $E \times E$.
 
-\textit{Part (ii), detailed argument.}  If both filtrations converge to $\mathcal{F}_{\SigO}$, then for any $r \in \R$ with $\Iinfo[I_{\Obs_k}(r)] > 0$, the coherence at the finest available scale converges to 1, so $r$ eventually becomes representable for both observers.  Therefore $R_1(t) \cap R_2(t) \to R_1(\infty) \cap R_2(\infty) = \{r : \Iinfo[\IO(r)] > 0\}$ and similarly for the union, giving $\Omega \to 1$.  The converse follows because $\Omega \to 1$ requires the symmetric difference $R_1(t) \triangle R_2(t)$ to have measure tending to zero, which requires both observers to resolve the same structure.
+\subsection{On the Monotonicity of Coherence}
+The proof of Theorem 3 uses the claim that $\mathcal{C}_s^{(\mathcal{O})}[x]$ is non increasing in $s$. This follows from the fact that $\mathcal{I}_s[x]$ is non increasing in $s$ (because conditioning on a coarser $\sigma$-algebra cannot increase the conditional expectation of a non negative quantity) while $\mathcal{I}[x]$ is independent of $s$. The ratio is therefore non increasing.
 
-\section{Notation Index}\label{app:notation}
+\subsection{Simulation Notes}
+The figures in this paper were generated using Python with Matplotlib. All code is available in the accompanying repository. Figure 1 computes the Gaussian mutual information for a system of 3 and 2 variables with uniform pairwise correlation $\rho$, demonstrating the coherence drop under marginalization. Figure 2 models the neural suppression scenario with 20 cortical sites and a lag dependent suppression factor. The radar chart in Figure 4 compares the present framework against IIT, FEP, and decoherence across five structural dimensions. Figure 3 shows the definition dependency chain.
 
-\begin{table}[H]
+\section{Notation Index}
+
+For reference, we provide a complete index of the notation used in this paper, organized by the section in which each symbol is first introduced.
+
+\begin{table}[ht]
 \centering
-\caption{Complete notation index.}
-\begin{tabular}{@{}ll@{}}
-\toprule
-\textbf{Symbol} & \textbf{Meaning} \\
-\midrule
-$\R$ & Underlying reality (measurable topological space) \\
-$\Obs$ & Observer class tuple $(\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$ \\
-$\IO$ & Observer interface map $\R \to \SigO$ \\
-$\SigO$ & Observer-accessible state space \\
-$E, \nu$ & Component index space and measure \\
-$\Bij(x)$ & Binding tensor \\
-$\Iinfo[x]$ & Integrated relational information \\
-$\Iinfo_s[x]$ & Scale-conditioned information \\
-$\Cs[x]$ & Scale-dependent coherence functional \\
-$\{\Fs\}$ & Scale filtration \\
-$\TO$ & Admissible transformation set \\
-$\DO$ & Distinction set \\
-$\VO$ & Invariant set \\
-$\MO$ & Observer-induced mathematical system \\
-$\PsiO$ & Representability map \\
-$\epsO$ & Observer detection threshold \\
-$\alpha$ & Information non-annihilation parameter \\
-$\beta$ & Bounded scale distortion parameter \\
-$\gamma$ & Neural suppression parameter \\
-$\Omega$ & Observer overlap measure \\
-$\Delta\Psi$ & Perceptual expansion set \\
-$\nabla\Psi$ & Perceptual contraction set \\
-$\Xi$ & Observer evolution map \\
-\bottomrule
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Symbol} & \textbf{Meaning} & \textbf{Definition} \\
+\hline
+$\mathcal{R}$ & Underlying reality & Def. 1 \\
+$\mathcal{O}$ & Observer tuple $(\mathcal{S}, \mathcal{P}, \mathcal{C}, \mathcal{A})$ & Def. 2 \\
+$\mathcal{T}_{\mathcal{O}}$ & Admissible transformation set & Def. 3 \\
+$I_{\mathcal{O}}$ & Interface map & Def. 4 \\
+$\mathcal{R}_{\mathcal{O}}$ & Observer accessible quotient & Def. 5 \\
+$\{\mathcal{F}_s\}$ & Scale filtration & Def. 6 \\
+$(E, \nu)$ & Component index space & Def. 7 \\
+$\mathcal{B}_{ij}(x)$ & Binding tensor & Def. 8 \\
+$\mathcal{I}[x]$ & Integrated relational information & Def. 9 \\
+$\mathcal{I}_s[x]$ & Scale conditioned information & Def. 10 \\
+$\mathcal{C}_s^{(\mathcal{O})}[x]$ & Coherence functional & Def. 11 \\
+$\epsilon_{\mathcal{O}}$ & Coherence threshold & Def. 12 \\
+$\mathcal{D}_{\mathcal{O}}$ & Distinction set & Def. 13 \\
+$\mathcal{V}_{\mathcal{O}}$ & Invariant set & Def. 14 \\
+$\mathfrak{M}_{\mathcal{O}}$ & Observer relative formal system & Def. 15 \\
+$\Psi_{\mathcal{O}}$ & Representability map & Def. 16 \\
+$\alpha$ & Information non annihilation parameter & Def. 17 \\
+$\beta$ & Bounded scale distortion parameter & Def. 18 \\
+$\mathcal{J}(\mathcal{O}_1, \mathcal{O}_2)$ & Joint representability set & Def. 19 \\
+$\mathfrak{M}_{\mathcal{O}_1 \cap \mathcal{O}_2}$ & Shared formal system & Def. 20 \\
+$\Omega(\mathcal{O}_1, \mathcal{O}_2)$ & Observer overlap & Def. 24 \\
+$\Xi$ & Observer evolution map & Def. 25 \\
+$\Delta\Psi$ & Representability expansion & Def. 26 \\
+$\nabla\Psi$ & Representability contraction & Def. 27 \\
+$\gamma$ & Neural suppression parameter & Example 2 \\
+\hline
 \end{tabular}
+\caption{Complete notation index with definition numbers.}
+\label{tab:notation}
 \end{table}
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
